@@ -43,7 +43,7 @@ You can add your own framework by implementing the interface: [BddFrameworkHandl
 
  2. Run as a Maven plugin
 
-    This tool is published in the Maven repository as a plugin. You can invode the plugin by using a fully qualified plugin ID
+    This tool is published in the Maven repository as a plugin. You can invoke the plugin by using a fully qualified plugin ID
     or a short version. Unlike the previous way, the CI admin doesn't need to manually deploy the tool.
 
     > **mvn bdd2octane:run -DreportFiles=<path_or_pattern> -DfeatureFiles=<path_or_pattern> -Dframework=\<framework> -DresultFile=<path_to_result_file>**
@@ -51,24 +51,24 @@ You can add your own framework by implementing the interface: [BddFrameworkHandl
     The following picture is a sample configuration of invoking a Maven target to run the plugin.
     ![Run as mvn](./run_as_mvn.png)
 
-### Notes on Cucumber-js
+### Notes on Cucumber-js handler
 
 * Cucumber-js using the Gherkin library to parse the feature file. For Cucumber-js version 6.x and below, it uses the Gherkin
-  library in version 5 or below which does not support the key word "Example". If a feature file contains "Example" as key
-  word, the program will throw an error. It is recommended to use "Scenario" instead of "Example" as the scenario key word to
-  avoid this error.
-* "Example" key word was added to the Gherkin library in version 6.0.13 on 9/25
+  library in version 5 or below which does not support the keyword "Example". 
+  If a feature file contains "Example" as keyword, the program will throw an error.
+  It is recommended to use "Scenario" instead of "Example" as the scenario keyword to avoid this error.
+* "Example" keyword was added to the Gherkin library in version 6.0.13 on 9/25
   2018 [Gherkin library changelog](https://github.com/cucumber/common/blob/main/gherkin/CHANGELOG.md#6013---2018-09-25).
   Cucumber-js version 7 and above applies the updated Gherkin library and won't have this problem.
 
-### Notes on Cucumber-jvm
-* If **useFileNameCompatibleName** is enabled, the space character in a feature name is replaced with underscore(_) in JUnit report.
-  Currently the handler doesn't support this configuration.
+### Notes on Cucumber-jvm handler
+* If **useFileNameCompatibleName** is enabled, the space character in a feature name is replaced with underscore(_) in JUnit report,
+  currently the handler doesn't support this configuration.
     
 * Since Maven Surefire 2.19.1, the JUnit report doesn't include failing call stack in \<failure> element or \<error> element. 
 It is required to enable the "pretty" option of Cucumber-jvm. This tool will parse the <system-out> tag instead.
   
 * There is a bug in Surefire if the feature name includes parentheses, the JUnit report is mangled. [SUREFIRE-1952](https://issues.apache.org/jira/browse/SUREFIRE-1952)
 
-* If **stepNotifications** is enabled, feature name and scenario name will be replaced by scenario name and step name in JUnit report.
-  Currently the handler doesn't support this configuration.
+* If **stepNotifications** is enabled, feature name and scenario name will be replaced by scenario name and step name in JUnit report,
+  currently the handler doesn't support this configuration.
