@@ -23,6 +23,7 @@ The following frameworks are currently supported out-of-the-box:
   > verified versions: 4.0.0, 5.0.0, 6.0.0, 7.0.0
 
 You can add your own framework by implementing the interface: [BddFrameworkHandler](./src/main/java/com/microfocus/bdd/api/BddFrameworkHandler.java)
+SpecFlow test result injection is supported via the use of a template file for report generation. See https://marketplace.microfocus.com/appdelivery/content/alm-octane-bdd-automation-with-specflow.
 
 ### There are two ways to invoke this tool:
  1. Run as an executable-jar
