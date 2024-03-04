@@ -34,7 +34,8 @@ package com.microfocus.bdd;
 
 import com.microfocus.bdd.api.*;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class CucumberJvmHandler implements BddFrameworkHandler {
@@ -178,12 +179,19 @@ java.lang.AssertionError
         if (!feature.getScenarios(sceName).isEmpty()) {
             return sceName;
         }
+        List<OctaneScenario> scenarioOutlinesWithMatchingPrefix = new ArrayList<>();
         for (OctaneScenario sce : feature.getScenarios()) {
             if (sceName.startsWith(sce.getOutlineName())) {
-                return (sce.getName());
+                scenarioOutlinesWithMatchingPrefix.add(sce);
             }
         }
-        return null;
+        if (! scenarioOutlinesWithMatchingPrefix.isEmpty()) {
+            scenarioOutlinesWithMatchingPrefix.sort((c1, c2) -> c2.getOutlineName().length() - c1.getOutlineName().length());
+            // return longest match, avoiding coincidental matches with shorter prefix
+            return scenarioOutlinesWithMatchingPrefix.get(0).getName();
+        } else {
+            return null;
+        }
     }
 
 /*
