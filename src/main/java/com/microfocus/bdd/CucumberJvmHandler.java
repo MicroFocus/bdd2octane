@@ -113,6 +113,7 @@ java.lang.AssertionError
                                 }
                             }
                             if (failedLine == null) {
+                                isSkipped = true;
                                 return;
                             }
                             int startOfFileLocation = failedLine.lastIndexOf("(");
