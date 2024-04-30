@@ -68,6 +68,6 @@ public class FilesLocatorTest {
     public void matchPatternPassTest() {
         final String pattern = "src/**/*junit*.xml";
         List<String> reports = FilesLocator.getReportFiles(pattern);
-        Assert.assertEquals(23, reports.size());
+        Assert.assertEquals(24, reports.size());
     }
 }

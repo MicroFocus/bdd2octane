@@ -192,9 +192,7 @@ java.lang.AssertionError
         if (octaneFeatureLocator != null && octaneFeatureLocator.length > 0) {
             Optional<OctaneFeature> octaneFeatureOpt;
             String classnamePart = classname;
-            while (classnamePart.contains("-")) {
-                int lastIndex = classnamePart.lastIndexOf("-");
-                classnamePart = classnamePart.substring(0, lastIndex).trim();
+            while (!classnamePart.isEmpty()) {
                 try {
                     octaneFeatureOpt = octaneFeatureLocator[0].getOctaneFeatureByName(classnamePart);
                 } catch (IOException e) {
@@ -202,6 +200,10 @@ java.lang.AssertionError
                 }
                 if (octaneFeatureOpt.isPresent()) {
                     return Optional.of(classnamePart);
+                }
+                if (classnamePart.contains("-")) {
+                    int lastIndex = classnamePart.lastIndexOf("-");
+                    classnamePart = classnamePart.substring(0, lastIndex).trim();
                 }
             }
         }
