@@ -40,6 +40,7 @@ import org.junit.Test;
 import javax.xml.stream.XMLStreamException;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class TestCucumberJvmHandler {
@@ -230,5 +231,36 @@ public class TestCucumberJvmHandler {
         Assert.assertTrue("handler doesn't return feature name",
                 !handler.getFeatureName().isPresent());
     }
+
+  @Test
+  public void testHyphenatedFeatureNameExactMatch() {
+    CucumberJvmHandler handler = new CucumberJvmHandler();
+    Element element = TestUtil.getXmlElement("src/test/resources/cucumber-jvm/hyphenated-feature-name/TEST-hyphenated-feature-name.xml",
+        "testcase", 1);
+    handler.setElement(element);
+    OctaneFeatureLocator cache = new OctaneFeatureLocator(Arrays.asList(
+        "src/test/resources/features/robustgherkin.feature", // this file is to add some salt to the test case
+        "src/test/resources/features/robustgherkin_cn.feature",// this file is to add some salt to the test case
+        "src/test/resources/features/feature_name_has_hyphens.feature"));
+    Assert.assertEquals("handler can get back feature name",
+        "feature - with hyphens - group one",
+        handler.getFeatureName(cache).get());
+
+  }
+  @Test
+  public void testHyphenatedFeatureNamePartMatch()  {
+    CucumberJvmHandler handler = new CucumberJvmHandler();
+    Element element = TestUtil.getXmlElement("src/test/resources/cucumber-jvm/hyphenated-feature-name/TEST-hyphenated-feature-name.xml",
+        "testcase", 2);
+    handler.setElement(element);
+    OctaneFeatureLocator cache = new OctaneFeatureLocator(Arrays.asList(
+        "src/test/resources/features/robustgherkin.feature", // this file is to add some salt to the test case
+        "src/test/resources/features/robustgherkin_cn.feature",// this file is to add some salt to the test case
+        "src/test/resources/features/feature_name_has_hyphens.feature"));
+    Assert.assertEquals("handler can get back feature name",
+        "feature - with hyphens - group one",
+        handler.getFeatureName(cache).get());
+
+  }
 
 }

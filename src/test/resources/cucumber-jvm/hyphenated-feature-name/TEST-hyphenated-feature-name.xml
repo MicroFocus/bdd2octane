@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="4" failures="0" name="com.czeczotka.bdd.runner.RunCalculatorTest" time="0.109" errors="0" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="java.vm.version" value="11.0.11+9"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\AdoptOpenJDK\bin"/>
+    <property name="maven.multiModuleProjectDirectory" value="D:\userApps\cucumber-jvm-maven"/>
+    <property name="java.vm.vendor" value="AdoptOpenJDK"/>
+    <property name="java.vendor.url" value="https://adoptopenjdk.net/"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="path.separator" value=";"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="D:\userApps\cucumber-jvm-maven"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="java.runtime.version" value="11.0.11+9"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Users\QIUXIA~1.COR\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="classworlds.conf" value="C:\apache-maven-3.5.0\bin\..\bin\m2.conf"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\AdoptOpenJDK\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files\7-Zip\;C:\Program Files\AdoptOpenJDK\bin;C:\Program Files (x86)\Yarn\bin\;C:\hack_proj\msteams-samples-hello-world-nodejs-master\node_modules\.bin;C:\Apps\mqm\UI\mqm-web-ui\node_modules\.bin;C:\Program Files\nodejs\node_modules\npm;C:\Program Files\Java\jdk1.8.0_211\bin;C:\apache-maven-3.5.0\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Users\qiuxiao\MFRepository\mqm\UI\mqm-web-ui\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;C:\Ruby27-x64\bin;C:\Users\qiuxiao.CORPDOM\AppData\Local\Yarn\bin;C:\Users\qiuxiao.CORPDOM\AppData\Local\Microsoft\WindowsApps;C:\Users\qiuxiao.CORPDOM\AppData\Local\GitHubDesktop\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2019.1.3\bin;;C:\Users\qiuxiao.CORPDOM\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\qiuxiao.CORPDOM\AppData\Roaming\npm;C:\Users\qiuxiao.CORPDOM\AppData\Local\Microsoft\WindowsApps;."/>
+    <property name="maven.conf" value="C:\apache-maven-3.5.0\bin\../conf"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="java.class.version" value="55.0"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.0"/>
+    <property name="library.jansi.path" value="C:\apache-maven-3.5.0\bin\..\lib\jansi-native\windows64"/>
+    <property name="user.home" value="C:\Users\qiuxiao.CORPDOM"/>
+    <property name="user.timezone" value="Asia/Shanghai"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.specification.version" value="11"/>
+    <property name="user.name" value="qiuxiao"/>
+    <property name="java.class.path" value="C:\apache-maven-3.5.0\bin\..\boot\plexus-classworlds-2.5.2.jar"/>
+    <property name="java.vm.specification.version" value="11"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher test"/>
+    <property name="java.home" value="C:\Program Files\AdoptOpenJDK"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="11.0.11"/>
+    <property name="java.vendor" value="AdoptOpenJDK"/>
+    <property name="sun.stderr.encoding" value="cp437"/>
+    <property name="maven.home" value="C:\apache-maven-3.5.0\bin\.."/>
+    <property name="file.separator" value="\"/>
+    <property name="java.version.date" value="2021-04-20"/>
+    <property name="java.vendor.url.bug" value="https://github.com/AdoptOpenJDK/openjdk-support/issues"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="java.vendor.version" value="AdoptOpenJDK-11.0.11+9"/>
+    <property name="sun.stdout.encoding" value="cp437"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase classname="feature - with hyphens - group one" name="Some determinable business situation (hyphenated feature name)" time="0.047"/>
+  <testcase classname="feature - with hyphens - group one - some extra text" name="Some another scenario 2 (hyphenated feature name)" time="0.021"/>
+</testsuite>
