@@ -183,6 +183,16 @@ java.lang.AssertionError
         featureFile = featureFile.substring(0, lineNumIndex);
     }
 
+    private Optional<OctaneFeature> findMatchingFeature(OctaneFeatureLocator octaneFeatureLocator, String classname) {
+      Optional<OctaneFeature> octaneFeatureOpt;
+      try {
+        octaneFeatureOpt = octaneFeatureLocator.getOctaneFeatureByName(classname);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+      return octaneFeatureOpt;
+    }
+
   @Override
   public Optional<String> getFeatureName(OctaneFeatureLocator... octaneFeatureLocator) {
     String classname = element.getAttribute("classname");
@@ -191,26 +201,15 @@ java.lang.AssertionError
     }
     if (octaneFeatureLocator != null && octaneFeatureLocator.length > 0) {
       Optional<OctaneFeature> octaneFeatureOpt;
-      //first attempt to find OctaneFeature based on exact match of classname
-      try {
-        octaneFeatureOpt = octaneFeatureLocator[0].getOctaneFeatureByName(classname);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
+      octaneFeatureOpt = findMatchingFeature(octaneFeatureLocator[0], classname);
       if (octaneFeatureOpt.isPresent()) {
         return Optional.of(classname);
       } else {
-        //attempt to find OctaneFeature based on match of classnamePart (removes hyphenated suffix)
         String classnamePart = classname;
         while (classnamePart.contains("-")) {
           int lastIndex = classnamePart.lastIndexOf("-");
           classnamePart = classnamePart.substring(0, lastIndex).trim();
-          try {
-            octaneFeatureOpt = octaneFeatureLocator[0].getOctaneFeatureByName(classnamePart);
-
-          } catch (IOException e) {
-            throw new RuntimeException(e);
-          }
+          octaneFeatureOpt = findMatchingFeature(octaneFeatureLocator[0], classnamePart);
           if (octaneFeatureOpt.isPresent()) {
             return Optional.of(classnamePart);
             }
