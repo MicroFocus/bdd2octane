@@ -5,5 +5,4 @@
 .settings
 *.iml
 target/
-cucumber/
 *result.xml
