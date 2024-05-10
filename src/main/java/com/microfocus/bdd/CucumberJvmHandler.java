@@ -204,6 +204,8 @@ java.lang.AssertionError
                 if (classnamePart.contains("-")) {
                     int lastIndex = classnamePart.lastIndexOf("-");
                     classnamePart = classnamePart.substring(0, lastIndex).trim();
+                } else {
+                    return Optional.of(classname);
                 }
             }
         }

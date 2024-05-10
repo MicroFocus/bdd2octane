@@ -121,5 +121,10 @@ Then User should be presented with Help us go green modal overlay...........pass
 ]]></system-out>
     </testcase>
 
-
+    <testcase classname="MyAccount - Footeeer - GoGreen Overlay Ui Validations" name="Verify the Help us go green modal overlay for postal document delivery in My Account" time="81.777">
+        <system-out><![CDATA[Given User logs into My Account with Postal document delivery method policy.passed
+When User is on Dashboard screen for Go Green Modal.........................passed
+Then User should be presented with Help us go green modal overlay...........passed
+]]></system-out>
+    </testcase>
 </testsuite>
