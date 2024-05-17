@@ -124,6 +124,7 @@ public class Bdd2Octane {
                 }
 
                 if (previousFeature != null && previousFeature != octaneFeature) {
+                    previousFeature.setStarted(FileUtil.getFileCreationTime(file));
                         writeFeatureToXML(writer, previousFeature);
                 }
                 previousFeature = octaneFeature;
@@ -150,6 +151,7 @@ public class Bdd2Octane {
                 count++;
             }
             if (previousFeature != null) {
+                previousFeature.setStarted(FileUtil.getFileCreationTime(file));
                 writeFeatureToXML(writer, previousFeature);
                 previousFeature = null;
             }

@@ -176,10 +176,7 @@ public class FeatureFileLocator {
     }
 
     private OctaneFeature parseFeatureFile(FeatureFileMeta featureFileMeta) {
-        OctaneFeature octaneFeature = GherkinDocumentUtil.generateSkeletonFeature(featureFileMeta);
-        String creationTime = FileUtil.getFileCreationTime(featureFileMeta.getFeatureFile());
-        octaneFeature.setStarted(creationTime);
-        return octaneFeature;
+        return GherkinDocumentUtil.generateSkeletonFeature(featureFileMeta);
     }
 
     private void cacheScenarios(OctaneFeature octaneFeature, FeatureFileMeta meta) {
