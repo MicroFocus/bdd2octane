@@ -41,15 +41,20 @@ SpecFlow test result injection is supported via the use of a template file for r
     file from the first action, cucumber-jvm-result.xml:
     ![Run as jar](./run_as_jar.png)
 
- 2. Run as a Maven plugin
+    2. Run as a Maven plugin
 
-    This tool is published in the Maven repository as a plugin. You can invoke the plugin by using a fully qualified plugin ID
-    or a short version. Unlike the previous way, the CI admin doesn't need to manually deploy the tool.
+       This tool is published in the Maven repository as a plugin. You can invoke the plugin by using a fully qualified plugin ID "com.microfocus.adm.almoctane.bdd:bdd2octane"
+       or just "bdd2octane" provided that a &lt;PluginGroup&gt; for "com.microfocus.adm.almoctane.bdd" is configured in maven settings. 
+       Unlike the previous way, the CI admin doesn't need to manually deploy the tool.
 
-    > **mvn bdd2octane:run -DreportFiles=<path_or_pattern> -DfeatureFiles=<path_or_pattern> -Dframework=\<framework> -DresultFile=<path_to_result_file>**
-
-    The following picture is a sample configuration of invoking a Maven target to run the plugin.
-    ![Run as mvn](./run_as_mvn.png)
+    >    **mvn com.microfocus.adm.almoctane.bdd:bdd2octane:run -DreportFiles=<path_or_pattern> -DfeatureFiles=<path_or_pattern> -Dframework=\<framework> -DresultFile=<path_to_result_file>**
+    
+       or
+    
+    >    **mvn bdd2octane:run -DreportFiles=<path_or_pattern> -DfeatureFiles=<path_or_pattern> -Dframework=\<framework> -DresultFile=<path_to_result_file>**
+    
+       The following picture is a sample configuration of invoking a Maven target to run the plugin.
+       ![Run as mvn](./run_as_mvn.png)
 
 ### Notes on Cucumber-js handler
 
