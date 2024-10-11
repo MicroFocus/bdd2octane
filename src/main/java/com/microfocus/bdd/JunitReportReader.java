@@ -89,6 +89,10 @@ public class JunitReportReader implements Iterable<Element>{
         }
 
         private Element getElement(StartElement startElementEvent) {
+            if (null == startElementEvent) {
+                return null;
+            }
+
             Element element = new Element();
             try {
                 String elementName = getElementName(startElementEvent);
