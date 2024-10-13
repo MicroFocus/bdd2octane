@@ -1,7 +1,6 @@
- /**
- *
+/**
  * Copyright 2021-2023 Open Text
- *
+ * <p>
  * The only warranties for products and services of Open Text and
  * its affiliates and licensors (“Open Text”) are as may be set forth
  * in the express warranty statements accompanying such products and services.
@@ -9,20 +8,20 @@
  * Open Text shall not be liable for technical or editorial errors or
  * omissions contained herein. The information contained herein is subject
  * to change without notice.
- *
+ * <p>
  * Except as specifically indicated otherwise, this document contains
  * confidential information and a valid license is required for possession,
  * use or copying. If this work is provided to the U.S. Government,
  * consistent with FAR 12.211 and 12.212, Commercial Computer Software,
  * Computer Software Documentation, and Technical Data for Commercial Items are
  * licensed to the U.S. Government under vendor's standard commercial license.
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,12 +35,10 @@ import com.microfocus.bdd.FeatureFileMeta;
 import com.microfocus.bdd.api.*;
 import com.microfocus.bdd.gherkin.GherkinFeature;
 import com.microfocus.bdd.gherkin.GherkinScenario;
-import io.cucumber.gherkin.GherkinDocumentBuilder;
-import io.cucumber.gherkin.Parser;
-import io.cucumber.gherkin.ParserException;
-import io.cucumber.gherkin.TokenMatcher;
-import io.cucumber.messages.IdGenerator;
+import io.cucumber.messages.types.Envelope;
 import io.cucumber.messages.types.GherkinDocument;
+import io.cucumber.messages.types.Source;
+import io.cucumber.gherkin.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -49,6 +46,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static io.cucumber.messages.types.SourceMediaType.TEXT_X_CUCUMBER_GHERKIN_PLAIN;
 
 public class GherkinDocumentUtil {
     public static OctaneFeature generateSkeletonFeature(FeatureFileMeta featureFileMeta) {
@@ -74,21 +73,37 @@ public class GherkinDocumentUtil {
 
     private static GherkinDocument getDocument(FeatureFileMeta featureFileMeta) {
         try {
-            return parse(String.join("\n", Files.readAllLines(Paths.get(featureFileMeta.getFeatureFile()))), featureFileMeta.getLanguage());
+            Optional<GherkinDocument> gherkinDocument = parse(String.join("\n", Files.readAllLines(Paths.get(featureFileMeta.getFeatureFile()))), Optional.empty());
+            if(gherkinDocument.isEmpty()){
+                throw new RuntimeException("The Gherkin script contains errors. Fix them and then try again.");
+            }
+            return gherkinDocument.get();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static GherkinDocument parse(String script, String language) throws ParserException {
-        TokenMatcher matcher = new TokenMatcher(language);
-        Parser<GherkinDocument> parser = new Parser<>(new GherkinDocumentBuilder(new IdGenerator.Incrementing()));
-        return parser.parse(script, matcher);
+    public static Optional<GherkinDocument> parse(String script, Optional<String> fileName) {
+        Envelope envelope = Envelope.of(new Source(fileName.orElse(""), script, TEXT_X_CUCUMBER_GHERKIN_PLAIN));
+        Optional<Envelope> gherkinDocumentEnv = GherkinParser.builder()
+                .includeSource(false)
+                .includePickles(false)
+                .build()
+                .parse(envelope)
+                .findFirst();
+        if (gherkinDocumentEnv.isPresent() && gherkinDocumentEnv.get().getParseError().isPresent()) {
+            throw new RuntimeException(String.format("The Gherkin script contains errors. Fix them and then try again. %s.", gherkinDocumentEnv.get().getParseError().get().getMessage()));
+        }
+
+        return gherkinDocumentEnv.isPresent() ? gherkinDocumentEnv.get().getGherkinDocument() : Optional.empty();
+
     }
 
     private static Optional<GherkinFeature> getFeature(GherkinDocument gherkinDocument) {
-        GherkinFeature feature = new GherkinFeature(gherkinDocument.getFeature());
-
+        if(gherkinDocument.getFeature().isEmpty()){
+            return Optional.empty();
+        }
+        GherkinFeature feature = new GherkinFeature(gherkinDocument.getFeature().get());
         return Optional.of(feature);
     }
 }

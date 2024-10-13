@@ -56,7 +56,7 @@ public class GherkinFeature {
 
     public GherkinFeature(Feature feature) {
         this.feature = feature;
-        this.dialect = new GherkinDialectProvider().getDialect(feature.getLanguage(), null);
+        this.dialect = new GherkinDialectProvider().getDialect(feature.getLanguage()).get();
         initialize(feature);
     }
 
@@ -65,10 +65,10 @@ public class GherkinFeature {
         if (!children.isEmpty()) {
             children.forEach(child -> {
                 if (GherkinMultiLingualService.hasBackground(child)) {
-                    background = child.getBackground();
+                    background = child.getBackground().get();
                 }
                 if (GherkinMultiLingualService.hasScenario(child)) {
-                    Scenario scenario = child.getScenario();
+                    Scenario scenario = child.getScenario().get();
                     if (GherkinMultiLingualService.isOutlineScenario(scenario)) {
                         scenarios.add(new GherkinScenarioOutline(background, scenario, dialect));
                     } else {

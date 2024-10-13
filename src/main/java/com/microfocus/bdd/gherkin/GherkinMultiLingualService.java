@@ -61,11 +61,11 @@ public class GherkinMultiLingualService {
     public static final String DESCRIPTION_CONTENT_PROP = "description";
 
     public static boolean hasBackground(FeatureChild child) {
-        return child.getBackground() != null;
+        return child.getBackground().isPresent();
     }
 
     public static boolean hasScenario(FeatureChild child) {
-        return child.getScenario() != null;
+        return child.getScenario().isPresent();
     }
 
     public static boolean isOutlineScenario(Scenario scenario) {

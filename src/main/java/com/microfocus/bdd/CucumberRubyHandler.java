@@ -49,10 +49,10 @@ public class CucumberRubyHandler implements BddFrameworkHandler {
         String[] nameParts = testcaseNameInReport.split("\\(outline example", 2);
         if (nameParts.length == 2) {
             String testcaseName = nameParts[0].trim();
-            Optional<FeatureChild> child = feature.getGherkinDocument().getFeature().getChildren().stream()
-                    .filter(featureChild -> featureChild.getScenario() != null && featureChild.getScenario().getName().equals(testcaseName)).findFirst();
+            Optional<FeatureChild> child = feature.getGherkinDocument().getFeature().get().getChildren().stream()
+                    .filter(featureChild -> featureChild.getScenario().isPresent() && featureChild.getScenario().get().getName().equals(testcaseName)).findFirst();
             if (child.isPresent()) {
-                if (child.get().getScenario().getExamples().isEmpty()) {
+                if (child.get().getScenario().get().getExamples().isEmpty()) {
                     return testcaseNameInReport;
                 } else {
                     return testcaseName;

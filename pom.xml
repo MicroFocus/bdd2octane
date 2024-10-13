@@ -49,20 +49,20 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>gherkin</artifactId>
-      <version>19.0.3</version>
+      <version>29.0.0</version>
     </dependency>
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>messages</artifactId>
-      <version>16.0.1</version>
+      <version>25.0.1</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -381,4 +381,5 @@
     </profile>
 
   </profiles>
+
 </project>

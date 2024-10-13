@@ -56,7 +56,7 @@ public class GherkinScenarioOutline extends GherkinScenario {
 
     private void initialize(Scenario scenarioOutline) {
         scenarioOutline.getExamples().forEach(example -> {
-            List<TableCell> headers = example.getTableHeader().getCells();
+            List<TableCell> headers = example.getTableHeader().get().getCells();
             example.getTableBody().forEach(row -> {
                 Map<String, String> values = new HashMap<>();
                 List<TableCell> cells = row.getCells();

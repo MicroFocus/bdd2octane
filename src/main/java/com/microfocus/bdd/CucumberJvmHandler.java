@@ -240,10 +240,10 @@ java.lang.AssertionError
                     int lastIndex = sceNamePart.lastIndexOf("-");
                     sceNamePart = sceNamePart.substring(0, lastIndex).trim();
                     String finalSceNamePart = sceNamePart;
-                    Optional<FeatureChild> child = feature.getGherkinDocument().getFeature().getChildren().stream()
-                            .filter(featureChild -> featureChild.getScenario() != null && featureChild.getScenario().getName().equals(finalSceNamePart)).findFirst();
+                    Optional<FeatureChild> child = feature.getGherkinDocument().getFeature().get().getChildren().stream()
+                            .filter(featureChild -> featureChild.getScenario().isPresent() && featureChild.getScenario().get().getName().equals(finalSceNamePart)).findFirst();
                     if (child.isPresent()) {
-                        if (child.get().getScenario().getExamples().isEmpty()) {
+                        if (child.get().getScenario().get().getExamples().isEmpty()) {
                             return sceName;
                         } else {
                             return sceNamePart;
