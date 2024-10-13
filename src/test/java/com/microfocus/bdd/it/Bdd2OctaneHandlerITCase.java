@@ -41,6 +41,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -113,7 +114,7 @@ public class Bdd2OctaneHandlerITCase extends Bdd2OctaneITCase {
     }
 
     @Test
-    public void bdd2OctaneITCase() throws CompareXmlException, ParserConfigurationException, SAXException, IOException, IllegalAccessException, XMLStreamException, InstantiationException {
+    public void bdd2OctaneITCase() throws CompareXmlException, ParserConfigurationException, SAXException, IOException, IllegalAccessException, XMLStreamException, InstantiationException, InvocationTargetException, NoSuchMethodException {
         String resultFilePath = "target/generated-test-sources-" + resultFilesPath;
         System.out.println("Comparing result file " + resultFilePath + " with expected file " + standardResultPath);
         new Bdd2Octane(reportFiles, featureFiles, resultFilePath, framework.getValue()).run();

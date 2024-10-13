@@ -33,6 +33,7 @@ package com.microfocus.bdd.gherkin;
 
 import io.cucumber.gherkin.GherkinDialect;
 import io.cucumber.messages.types.FeatureChild;
+import io.cucumber.messages.types.RuleChild;
 import io.cucumber.messages.types.Scenario;
 import io.cucumber.messages.types.Tag;
 
@@ -66,6 +67,18 @@ public class GherkinMultiLingualService {
 
     public static boolean hasScenario(FeatureChild child) {
         return child.getScenario().isPresent();
+    }
+
+    public static boolean hasRule(FeatureChild child){
+        return child.getRule() != null && child.getRule().isPresent();
+    }
+
+    public static boolean hasBackground(RuleChild child){
+        return child.getBackground() != null && child.getBackground().isPresent();
+    }
+
+    public static boolean hasScenario(RuleChild child){
+        return child.getScenario() != null && child.getScenario().isPresent();
     }
 
     public static boolean isOutlineScenario(Scenario scenario) {

@@ -34,6 +34,7 @@ import com.google.common.collect.LinkedListMultimap;
 import com.microfocus.bdd.FeatureFileMeta;
 import com.microfocus.bdd.api.*;
 import com.microfocus.bdd.gherkin.GherkinFeature;
+import com.microfocus.bdd.gherkin.GherkinFeatureRule;
 import com.microfocus.bdd.gherkin.GherkinScenario;
 import io.cucumber.messages.types.Envelope;
 import io.cucumber.messages.types.GherkinDocument;
@@ -61,6 +62,11 @@ public class GherkinDocumentUtil {
         octaneFeature.setName(gherkinTestFeature.getName());
         for (GherkinScenario gherkinTestScenario : gherkinTestFeature.getScenarios()) {
             octaneScenarios.addAll(gherkinTestFeature.createOctaneScenarios(gherkinTestScenario));
+        }
+        for (GherkinFeatureRule gherkinFeatureRule : gherkinTestFeature.getRules()) {
+            gherkinFeatureRule.getScenarios().forEach(scn->{
+                octaneScenarios.addAll(scn.createOctaneScenarios());
+            });
         }
         for (OctaneScenario octaneScenario : octaneScenarios) {
             scenarioName2Scenario.put(octaneScenario.getName(), octaneScenario);

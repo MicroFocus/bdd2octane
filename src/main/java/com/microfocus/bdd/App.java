@@ -39,6 +39,7 @@ import org.reflections.util.ConfigurationBuilder;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -47,7 +48,7 @@ import java.util.Set;
 public class App {
     private static Properties properties;
 
-    public static void main(String[] args) throws XMLStreamException, IOException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws XMLStreamException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         // --reportFiles="**/*junit.xml" --featureFiles="**/*.feature"
         // --reportFiles="junit_xml" --featureFiles="features"
         properties = parseArgs(args);
@@ -127,8 +128,8 @@ public class App {
         StringBuilder sb = new StringBuilder();
         for (Class<? extends BddFrameworkHandler> impl : implementations) {
             try {
-                sb.append("    " + impl.newInstance().getName());
-            } catch (InstantiationException | IllegalAccessException e) {
+                sb.append("    " + impl.getDeclaredConstructor().newInstance().getName());
+            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                 throw new RuntimeException(e);
             }
             sb.append('\n');

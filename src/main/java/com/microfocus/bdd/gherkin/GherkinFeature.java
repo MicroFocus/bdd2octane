@@ -50,7 +50,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class GherkinFeature {
 
     private final List<GherkinScenario> scenarios = new ArrayList<>();
-    private Background background;
+    private final List<GherkinFeatureRule> rules = new ArrayList<>();
     private GherkinDialect dialect;
     private Feature feature;
 
@@ -62,20 +62,24 @@ public class GherkinFeature {
 
     private void initialize(Feature feature) {
         List<FeatureChild> children = feature.getChildren();
+        Background featureBackground=null;
         if (!children.isEmpty()) {
-            children.forEach(child -> {
+            for (FeatureChild child : children){
                 if (GherkinMultiLingualService.hasBackground(child)) {
-                    background = child.getBackground().get();
+                    featureBackground = child.getBackground().get();
                 }
                 if (GherkinMultiLingualService.hasScenario(child)) {
                     Scenario scenario = child.getScenario().get();
                     if (GherkinMultiLingualService.isOutlineScenario(scenario)) {
-                        scenarios.add(new GherkinScenarioOutline(background, scenario, dialect));
+                        scenarios.add(new GherkinScenarioOutline(featureBackground, scenario, dialect));
                     } else {
-                        scenarios.add(new GherkinScenario(background, scenario, dialect));
+                        scenarios.add(new GherkinScenario(featureBackground, scenario, dialect));
                     }
                 }
-            });
+                if (GherkinMultiLingualService.hasRule(child)) {
+                    rules.add(new GherkinFeatureRule(featureBackground, child.getRule().get(), dialect));
+                }
+            }
         }
     }
 
@@ -87,6 +91,9 @@ public class GherkinFeature {
         return scenarios;
     }
 
+    public List<GherkinFeatureRule> getRules() {
+        return rules;
+    }
 
     public List<OctaneScenario> createOctaneScenarios(GherkinScenario scenario) {
         if (scenario == null) {
