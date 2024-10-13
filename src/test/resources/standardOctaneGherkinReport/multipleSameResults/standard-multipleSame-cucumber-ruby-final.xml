@@ -443,9 +443,9 @@ this is comment
                           status="skipped"></step>
                     <step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="skipped"></step>
                     <step name="* a customer named &quot;Wilson&quot;" duration="0" status="skipped"></step>
-                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="passed"></step>
-                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="passed"></step>
-                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="passed"></step>
+                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="skipped"></step>
+                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="skipped"></step>
+                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="skipped"></step>
                     <step name="Given the cow weighs 450 kg" duration="0" status="skipped"></step>
                     <step name="When we calculate the feeding requirements" duration="0" status="skipped"></step>
                     <step name="Then the energy should be 26500 MJ" duration="0" status="skipped"></step>
@@ -457,9 +457,9 @@ this is comment
                           status="skipped"></step>
                     <step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="skipped"></step>
                     <step name="* a customer named &quot;Wilson&quot;" duration="0" status="skipped"></step>
-                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="passed"></step>
-                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="passed"></step>
-                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="passed"></step>
+                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="skipped"></step>
+                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="skipped"></step>
+                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="skipped"></step>
                     <step name="Given the cow weighs 451 kg" duration="0" status="skipped"></step>
                     <step name="When we calculate the feeding requirements" duration="0" status="skipped"></step>
                     <step name="Then the energy should be 26501 MJ" duration="0" status="skipped"></step>
@@ -471,9 +471,9 @@ this is comment
                           status="skipped"></step>
                     <step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="skipped"></step>
                     <step name="* a customer named &quot;Wilson&quot;" duration="0" status="skipped"></step>
-                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="passed"></step>
-                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="passed"></step>
-                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="passed"></step>
+                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="skipped"></step>
+                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="skipped"></step>
+                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="skipped"></step>
                     <step name="Given the cow weighs 500 kg" duration="0" status="skipped"></step>
                     <step name="When we calculate the feeding requirements" duration="0" status="skipped"></step>
                     <step name="Then the energy should be 29500 MJ" duration="0" status="skipped"></step>

@@ -87,6 +87,9 @@ Feature: Some terse yet descriptive text of what is desired like bla bla
                           status="passed"/>
                     <step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="passed"/>
                     <step name="* a customer named &quot;Wilson&quot;" duration="0" status="passed"/>
+                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="passed"></step>
+                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="passed"></step>
+                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="passed"></step>
                     <step name="Given some precondition" duration="0" status="passed"/>
                     <step name="And some other precondition with doc string
 &quot;&quot;&quot;
@@ -116,6 +119,9 @@ this is comment
                           status="passed"/>
                     <step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="passed"/>
                     <step name="* a customer named &quot;Wilson&quot;" duration="0" status="passed"/>
+                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="passed"></step>
+                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="passed"></step>
+                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="passed"></step>
                     <step name="Given the cow weighs 450 kg" duration="0" status="passed"/>
                     <step name="When we calculate the feeding requirements" duration="0" status="failed">
                         <error_message><![CDATA[Error: Weight can not be null
@@ -131,6 +137,9 @@ this is comment
                           status="passed"/>
                     <step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="passed"/>
                     <step name="* a customer named &quot;Wilson&quot;" duration="0" status="passed"/>
+                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="passed"></step>
+                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="passed"></step>
+                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="passed"></step>
                     <step name="Given the cow weighs 500 kg" duration="0" status="passed"/>
                     <step name="When we calculate the feeding requirements" duration="0" status="failed">
                         <error_message><![CDATA[Error: Weight can not be null
