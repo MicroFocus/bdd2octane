@@ -39,6 +39,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 @Mojo(name = "run", requiresProject = false)
@@ -71,6 +72,10 @@ public class MavenPlugin extends AbstractMojo {
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
     }

@@ -35,6 +35,7 @@ import com.microfocus.bdd.api.OctaneScenario;
 import com.microfocus.bdd.api.OctaneStep;
 import io.cucumber.gherkin.GherkinDialect;
 import io.cucumber.messages.types.Background;
+import io.cucumber.messages.types.Rule;
 import io.cucumber.messages.types.Scenario;
 import io.cucumber.messages.types.TableCell;
 
@@ -49,14 +50,18 @@ public class GherkinScenarioOutline extends GherkinScenario {
 
     private List<Map<String, String>> examplesRowsValues = new ArrayList<>();
 
-    public GherkinScenarioOutline(Background background, Scenario scenario, GherkinDialect dialect) {
-        super(background, scenario, dialect);
+    public GherkinScenarioOutline(Background background, Rule rule, Background ruleBackground, Scenario scenario, GherkinDialect dialect) {
+        super(background, rule , ruleBackground, scenario, dialect);
         initialize(scenario);
+    }
+
+    public GherkinScenarioOutline(Background featureBackground, Scenario scenario,GherkinDialect dialect) {
+        this(featureBackground,null,null,scenario,dialect);
     }
 
     private void initialize(Scenario scenarioOutline) {
         scenarioOutline.getExamples().forEach(example -> {
-            List<TableCell> headers = example.getTableHeader().getCells();
+            List<TableCell> headers = example.getTableHeader().get().getCells();
             example.getTableBody().forEach(row -> {
                 Map<String, String> values = new HashMap<>();
                 List<TableCell> cells = row.getCells();

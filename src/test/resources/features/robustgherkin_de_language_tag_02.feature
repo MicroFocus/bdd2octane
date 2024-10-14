@@ -1,5 +1,6 @@
 #language: de
 Funktion: Funktion02
+  Regel: anfänglich
 
   Beispiel: Beispiel
     Angenommen Angenommen

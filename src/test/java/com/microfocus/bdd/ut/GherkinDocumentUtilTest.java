@@ -57,10 +57,14 @@ public class GherkinDocumentUtilTest {
                 octaneFeature.getScenarios("feeding a cow <name> yum yum yum").get(0).getScenarioType());
 
         // test octane step
-        Assert.assertEquals("outline scenario #1 step #4 is filled with correct parameter value 450", "the cow weighs 450 kg",
+        Assert.assertEquals("outline scenario #1 step #4 is filled with correct parameter value 450", "first rule administrator named \"RG\"",
                 octaneFeature.getScenarios("feeding a cow <name> yum yum yum").get(0).getSteps().get(3).getName());
         Assert.assertEquals("outline scenario #1 step #4 keyword is Given", "Given",
                 octaneFeature.getScenarios("feeding a cow <name> yum yum yum").get(0).getSteps().get(3).getKeyword());
+        Assert.assertEquals("outline scenario #1 step #4 is filled with correct parameter value 450", "the cow weighs 450 kg",
+                octaneFeature.getScenarios("feeding a cow <name> yum yum yum").get(0).getSteps().get(6).getName());
+        Assert.assertEquals("outline scenario #1 step #4 keyword is Given", "Given",
+                octaneFeature.getScenarios("feeding a cow <name> yum yum yum").get(0).getSteps().get(6).getKeyword());
         Assert.assertEquals("outline scenario #1 step #3 is * a customer named \"Wilson\"", "* a customer named \"Wilson\"",
                 octaneFeature.getScenarios("feeding a cow <name> yum yum yum").get(0).getSteps().get(2).getKeyword() + " " +
                         octaneFeature.getScenarios("feeding a cow <name> yum yum yum").get(0).getSteps().get(2).getName());

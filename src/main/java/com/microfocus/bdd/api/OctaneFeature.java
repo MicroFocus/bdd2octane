@@ -157,11 +157,13 @@ public class OctaneFeature {
     }
 
     private String getTag() {
-        List<Tag> tags = gherkinDocument.getFeature().getTags();
-        for (Tag tag : tags) {
-            String name = tag.getName();
-            if (name.startsWith(BSPID_PREFIX)) {
-                return name.substring(1);
+        if(gherkinDocument.getFeature().isPresent()) {
+            List<Tag> tags = gherkinDocument.getFeature().get().getTags();
+            for (Tag tag : tags) {
+                String name = tag.getName();
+                if (name.startsWith(BSPID_PREFIX)) {
+                    return name.substring(1);
+                }
             }
         }
         return "";

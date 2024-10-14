@@ -42,7 +42,7 @@ import java.util.Optional;
 public class OctaneFeatureLocator {
 
     private FeatureFileLocator featureFileLocator;
-    private Map<String, OctaneFeature> featureFileToFeatureMap = new HashMap();
+    private Map<String, OctaneFeature> featureFileToFeatureMap = new HashMap<>();
 
     public OctaneFeatureLocator(List<String> featureFiles) {
         featureFileLocator = new FeatureFileLocator(featureFiles);

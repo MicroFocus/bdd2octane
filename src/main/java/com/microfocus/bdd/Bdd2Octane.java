@@ -39,6 +39,7 @@ import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
@@ -71,7 +72,7 @@ public class Bdd2Octane {
         toolVersion = getToolVersion();
     }
 
-    public void run() throws IOException, XMLStreamException, InstantiationException, IllegalAccessException {
+    public void run() throws IOException, XMLStreamException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
         XMLOutputFactory xmlOutFact = XMLOutputFactory.newInstance();
         XMLStreamWriter writer = xmlOutFact.createXMLStreamWriter(new FileOutputStream(outPutFilePath), StandardCharsets.UTF_8.name());
@@ -81,7 +82,7 @@ public class Bdd2Octane {
         int count = 0, skipped = 0;
         for (String file : reportFiles) {
             for (Element testCaseElement : getTestCaseElements(file)) {
-                BddFrameworkHandler bddFrameworkHandler = handlerClass.newInstance();
+                BddFrameworkHandler bddFrameworkHandler = handlerClass.getDeclaredConstructor().newInstance();
                 bddFrameworkHandler.setElement(testCaseElement);
 
                 //1. get feature name or feature file, parse it into Gherkin Document and expand scenarios.
@@ -235,7 +236,7 @@ public class Bdd2Octane {
         }
         try {
             for (Class<? extends BddFrameworkHandler> handlerClass : implementations) {
-                BddFrameworkHandler handler = handlerClass.newInstance();
+                BddFrameworkHandler handler = handlerClass.getDeclaredConstructor().newInstance();
                 if (handler.getName().equals(framework)) {
                     this.handlerClass = handlerClass;
                     this.testCaseElementName = handler.getTestCaseElementName();
@@ -244,7 +245,7 @@ public class Bdd2Octane {
             }
             System.err.println("Supported frameworks: ");
             System.err.print(App.getAllHandlerNames(implementations));
-        } catch (IllegalAccessException | InstantiationException e) {
+        } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
 

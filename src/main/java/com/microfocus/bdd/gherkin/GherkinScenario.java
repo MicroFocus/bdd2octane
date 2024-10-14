@@ -35,11 +35,13 @@ import com.microfocus.bdd.api.OctaneScenario;
 import com.microfocus.bdd.api.OctaneStep;
 import io.cucumber.gherkin.GherkinDialect;
 import io.cucumber.messages.types.Background;
+import io.cucumber.messages.types.Rule;
 import io.cucumber.messages.types.Scenario;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class GherkinScenario {
@@ -48,17 +50,29 @@ public class GherkinScenario {
     protected List<GherkinStep> stepsDescriptions = new ArrayList<>();
     protected GherkinDialect dialect;
     private Scenario scenario;
+    private Optional<Rule> rule;
 
-    public GherkinScenario(Background background, Scenario scenario, GherkinDialect dialect) {
+    public GherkinScenario(Background background, Rule rule, Background ruleBackground, Scenario scenario, GherkinDialect dialect) {
         this.scenario = scenario;
         this.dialect = dialect;
-        initialize(background, scenario);
+        this.rule = Optional.ofNullable(rule);
+        initialize(background, ruleBackground, scenario);
     }
 
-    private void initialize(Background background, Scenario scenario) {
+    public GherkinScenario(Background featureBackground, Scenario scenario, GherkinDialect dialect) {
+        this(featureBackground, null, null, scenario, dialect);
+    }
+
+    private void initialize(Background background, Background ruleBackground, Scenario scenario) {
         flowContext = "";
         if (background != null) {
             background.getSteps().forEach(step -> {
+                updateFlowContext(step);
+                stepsDescriptions.add(new GherkinStep(step, flowContext, dialect));
+            });
+        }
+        if (ruleBackground != null) {
+            ruleBackground.getSteps().forEach(step -> {
                 updateFlowContext(step);
                 stepsDescriptions.add(new GherkinStep(step, flowContext, dialect));
             });
@@ -129,5 +143,12 @@ public class GherkinScenario {
 
     public String getName() {
         return scenario.getName();
+    }
+
+    public Optional<String> getRuleName() {
+        if (rule.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(rule.get().getName());
     }
 }

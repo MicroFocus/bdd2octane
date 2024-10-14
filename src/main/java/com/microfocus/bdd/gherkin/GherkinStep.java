@@ -68,10 +68,10 @@ public class GherkinStep  {
 
     public Optional<String> getFlatDataTable() {
         List<String> rowLines = new ArrayList<>();
-        DataTable dataTable = step.getDataTable();
-        if (dataTable == null) {
+        if (step.getDataTable().isEmpty()) {
             return Optional.empty();
         }
+        DataTable dataTable = step.getDataTable().get();
         dataTable.getRows().forEach(row -> {
             StringBuilder rowLine = new StringBuilder();
             List<TableCell> cells = row.getCells();
@@ -90,10 +90,10 @@ public class GherkinStep  {
     }
 
     public Optional<String> getDocString() {
-        DocString docString = step.getDocString();
-        if (null == docString) {
+        if (step.getDocString().isEmpty()) {
             return Optional.empty();
         }
+        DocString docString = step.getDocString().get();
         return Optional.of(docString.getDelimiter() + '\n' + docString.getContent() + '\n' + docString.getDelimiter());
     }
 }

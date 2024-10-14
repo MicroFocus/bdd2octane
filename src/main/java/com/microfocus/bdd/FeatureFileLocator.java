@@ -157,7 +157,7 @@ public class FeatureFileLocator {
                     continue;
                 }
                 translatedFeatureNames = new GherkinDialectProvider(featureFileMeta.getLanguage())
-                        .getDialect(featureFileMeta.getLanguage(), null).getFeatureKeywords();
+                        .getDialect(featureFileMeta.getLanguage()).get().getFeatureKeywords();
                 if (translatedFeatureNames.stream().anyMatch(line::contains)) {
                     String[] featureNamePattern = line.split(":", 2);
                     if (featureNamePattern.length >= 2) {

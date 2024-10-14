@@ -34,8 +34,11 @@ package com.microfocus.bdd;
 
 import com.microfocus.bdd.api.*;
 import io.cucumber.messages.types.FeatureChild;
+import io.cucumber.messages.types.Rule;
+import io.cucumber.messages.types.RuleChild;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -240,13 +243,27 @@ java.lang.AssertionError
                     int lastIndex = sceNamePart.lastIndexOf("-");
                     sceNamePart = sceNamePart.substring(0, lastIndex).trim();
                     String finalSceNamePart = sceNamePart;
-                    Optional<FeatureChild> child = feature.getGherkinDocument().getFeature().getChildren().stream()
-                            .filter(featureChild -> featureChild.getScenario() != null && featureChild.getScenario().getName().equals(finalSceNamePart)).findFirst();
-                    if (child.isPresent()) {
-                        if (child.get().getScenario().getExamples().isEmpty()) {
-                            return sceName;
-                        } else {
-                            return sceNamePart;
+                    for (FeatureChild fChild : feature.getGherkinDocument().getFeature().get().getChildren()) {
+                        if (fChild.getScenario().isPresent() &&
+                                fChild.getScenario().get().getName().equals(finalSceNamePart)) {
+                            if (fChild.getScenario().get().getExamples().isEmpty()) {
+                                return sceName;
+                            } else {
+                                return sceNamePart;
+                            }
+                        }
+                        if (fChild.getRule().isPresent()) {
+                            Rule rule = fChild.getRule().get();
+                            for (RuleChild rChild : rule.getChildren()) {
+                                if (rChild.getScenario().isPresent() &&
+                                        rChild.getScenario().get().getName().equals(finalSceNamePart)) {
+                                    if (rChild.getScenario().get().getExamples().isEmpty()) {
+                                        return sceName;
+                                    } else {
+                                        return sceNamePart;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
