@@ -104,6 +104,21 @@
             <skipped message="">
             </skipped>
         </testcase>
+        <testcase name="Given first rule administrator named &quot;RG&quot;"
+                  classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;some-another-scenario-2">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="* a blog named &quot;RG&apos;s anti-tax rants&quot;"
+                  classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;some-another-scenario-2">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="* a customer named &quot;RYBZ&quot;"
+                  classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;some-another-scenario-2">
+            <skipped message="">
+            </skipped>
+        </testcase>
         <testcase name="Given some precondition"
                   classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;some-another-scenario-2">
             <skipped message="">
@@ -171,6 +186,21 @@
             <skipped message="">
             </skipped>
         </testcase>
+        <testcase name="Given first rule administrator named &quot;RG&quot;"
+                  classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;feeding-a-cow-cow1-yum-yum-yum">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="* a blog named &quot;RG&apos;s anti-tax rants&quot;"
+                  classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;feeding-a-cow-cow1-yum-yum-yum">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="* a customer named &quot;RYBZ&quot;"
+                  classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;feeding-a-cow-cow1-yum-yum-yum">
+            <skipped message="">
+            </skipped>
+        </testcase>
         <testcase name="Given the cow weighs 450 kg"
                   classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;feeding-a-cow-cow1-yum-yum-yum">
             <skipped message="">
@@ -214,6 +244,21 @@
             </skipped>
         </testcase>
         <testcase name="* a customer named &quot;Wilson&quot;"
+                  classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;feeding-a-cow-cow2-yum-yum-yum">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="Given first rule administrator named &quot;RG&quot;"
+                  classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;feeding-a-cow-cow2-yum-yum-yum">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="* a blog named &quot;RG&apos;s anti-tax rants&quot;"
+                  classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;feeding-a-cow-cow2-yum-yum-yum">
+            <skipped message="">
+            </skipped>
+        </testcase>
+        <testcase name="* a customer named &quot;RYBZ&quot;"
                   classname="some-terse-yet-descriptive-text-of-what-is-desired-like-bla-bla;feeding-a-cow-cow2-yum-yum-yum">
             <skipped message="">
             </skipped>

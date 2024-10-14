@@ -230,9 +230,6 @@ this is comment
                     <step name="When some action by the actor" duration="0" status="passed"/>
                     <step name="And yet another action" duration="0" status="passed"/>
                     <step name="Then some testable outcome is achieved" duration="0" status="passed"/>
-                    <step name="Given first rule administrator named &quot;RG&quot;" duration="0" status="passed"></step>
-                    <step name="* a blog named &quot;RG's anti-tax rants&quot;" duration="0" status="passed"></step>
-                    <step name="* a customer named &quot;RYBZ&quot;" duration="0" status="passed"></step>
                     <step name="* something else we can check happens too" duration="0" status="passed"/>
                     <step name="But I don't see something else" duration="0" status="failed">
                         <error_message><![CDATA[AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:

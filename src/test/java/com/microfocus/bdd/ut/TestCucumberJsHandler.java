@@ -61,7 +61,7 @@ public class TestCucumberJsHandler {
         Assert.assertEquals("handler can get back file path",
                 "features/robustgherkin.feature",
                 handler.getFeatureFile().get());
-        String errorMessage = element.getChildren().get(10).getChildren().get(0).getText();
+        String errorMessage = element.getChildren().get(13).getChildren().get(0).getText();
         Assert.assertTrue("handler can get correct error message for failed step", errorMessage.contains("Expected values to be strictly equal"));
     }
 
