@@ -27,6 +27,13 @@ lines
     Then some testable outcome is achieved
     And something else we can check happens too
 
+  @R1 @R2 @R3
+  Rule: first rule
+  Background:
+    Given first rule administrator named "RG"
+    * a blog named "RG's anti-tax rants"
+    * a customer named "RYBZ"
+
   @Quick @nightly
   @TSCID1109
   Example: Some another scenario 2
@@ -89,6 +96,9 @@ lines
                     <step duration="2000000" name="* a blog named &quot;Greg&apos;s anti-tax rants&quot;"
                           status="passed"/>
                     <step duration="2000000" name="* a customer named &quot;Wilson&quot;" status="Passed"/>
+                    <step duration="2000000"  name="Given first rule administrator named &quot;RG&quot;" status="passed"></step>
+                    <step duration="2000000"  name="* a blog named &quot;RG's anti-tax rants&quot;" status="passed"></step>
+                    <step duration="2000000"  name="* a customer named &quot;RYBZ&quot;" status="passed"></step>
                     <step duration="2000000" name="Given some precondition" status="Passed"/>
                     <step duration="2000000" name="And some other precondition with doc string&#10;this is comment"
                           status="passed"/>
@@ -116,6 +126,9 @@ lines
                     <step duration="2000000" name="* a blog named &quot;Greg&apos;s anti-tax rants&quot;"
                           status="passed"/>
                     <step duration="2000000" name="* a customer named &quot;Wilson&quot;" status="passed"/>
+                    <step duration="2000000"  name="Given first rule administrator named &quot;RG&quot;" status="passed"></step>
+                    <step duration="2000000"  name="* a blog named &quot;RG's anti-tax rants&quot;" status="passed"></step>
+                    <step duration="2000000"  name="* a customer named &quot;RYBZ&quot;" status="passed"></step>
                     <step duration="2000000" name="Given the cow weighs 450 kg" status="passed"/>
                     <step duration="2000000" name="When we calculate the feeding requirements" status="passed"/>
                     <step duration="2000000" name="Then the energy should be 26500 MJ" status="passed"/>
@@ -128,6 +141,9 @@ lines
                     <step duration="2000000" name="* a blog named &quot;Greg&apos;s anti-tax rants&quot;"
                           status="passed"/>
                     <step duration="2000000" name="* a customer named &quot;Wilson&quot;" status="passed"/>
+                    <step duration="2000000"  name="Given first rule administrator named &quot;RG&quot;" status="passed"></step>
+                    <step duration="2000000"  name="* a blog named &quot;RG's anti-tax rants&quot;" status="passed"></step>
+                    <step duration="2000000"  name="* a customer named &quot;RYBZ&quot;" status="passed"></step>
                     <step duration="2000000" name="Given the cow weighs 500 kg" status="passed"/>
                     <step duration="2000000" name="When we calculate the feeding requirements" status="passed"/>
                     <step duration="2000000" name="Then the energy should be 29500 MJ" status="passed"/>

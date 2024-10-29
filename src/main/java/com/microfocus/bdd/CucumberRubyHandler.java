@@ -33,6 +33,8 @@ package com.microfocus.bdd;
 
 import com.microfocus.bdd.api.*;
 import io.cucumber.messages.types.FeatureChild;
+import io.cucumber.messages.types.Rule;
+import io.cucumber.messages.types.RuleChild;
 
 import java.util.Optional;
 
@@ -49,13 +51,27 @@ public class CucumberRubyHandler implements BddFrameworkHandler {
         String[] nameParts = testcaseNameInReport.split("\\(outline example", 2);
         if (nameParts.length == 2) {
             String testcaseName = nameParts[0].trim();
-            Optional<FeatureChild> child = feature.getGherkinDocument().getFeature().getChildren().stream()
-                    .filter(featureChild -> featureChild.getScenario() != null && featureChild.getScenario().getName().equals(testcaseName)).findFirst();
-            if (child.isPresent()) {
-                if (child.get().getScenario().getExamples().isEmpty()) {
-                    return testcaseNameInReport;
-                } else {
-                    return testcaseName;
+            for (FeatureChild fChild : feature.getGherkinDocument().getFeature().get().getChildren()) {
+                if (fChild.getScenario().isPresent() &&
+                        fChild.getScenario().get().getName().equals(testcaseName)) {
+                    if (fChild.getScenario().get().getExamples().isEmpty()) {
+                        return testcaseNameInReport;
+                    } else {
+                        return testcaseName;
+                    }
+                }
+                if (fChild.getRule().isPresent()) {
+                    Rule rule = fChild.getRule().get();
+                    for (RuleChild rChild : rule.getChildren()) {
+                        if (rChild.getScenario().isPresent() &&
+                                rChild.getScenario().get().getName().equals(testcaseName)) {
+                            if (rChild.getScenario().get().getExamples().isEmpty()) {
+                                return testcaseNameInReport;
+                            } else {
+                                return testcaseName;
+                            }
+                        }
+                    }
                 }
             }
         } else {

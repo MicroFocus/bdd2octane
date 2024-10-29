@@ -57,12 +57,12 @@
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>gherkin</artifactId>
-      <version>19.0.3</version>
+      <version>29.0.0</version>
     </dependency>
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>messages</artifactId>
-      <version>16.0.1</version>
+      <version>25.0.1</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -117,7 +117,7 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.13.0</version>
           <configuration>
             <compilerArgument>-Xlint:all</compilerArgument>
           </configuration>
@@ -211,7 +211,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
-        <version>3.6.0</version>
+        <version>3.8.2</version>
         <executions>
           <execution>
             <id>default-descriptor</id>
@@ -381,4 +381,5 @@
     </profile>
 
   </profiles>
+
 </project>

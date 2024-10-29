@@ -23,6 +23,13 @@ Feature: Some terse - yet descriptive - text of what is desired like bla bla 3 e
     Then some testable outcome is achieved
     And something else we can check happens too
 
+  @R1 @R2 @R3
+  Rule: first rule
+  Background:
+    Given first rule administrator named "RG"
+    * a blog named "RG's anti-tax rants"
+    * a customer named "RYBZ"
+
   @Quick @nightly
   @TSCID1002
   Scenario: Some another scenario 2
