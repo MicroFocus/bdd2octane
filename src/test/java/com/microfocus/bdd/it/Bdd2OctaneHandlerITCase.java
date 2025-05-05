@@ -100,7 +100,7 @@ public class Bdd2OctaneHandlerITCase extends Bdd2OctaneITCase {
                 //scenario outlines failed beforeClass case
                 {Framework.CUCUMBER_JVM, "src/test/resources/cucumber-jvm/3outlines/failed_scenario_outlines_without_any_failed_step_info.xml", "src/test/resources/features/check_payment_method_status.feature", "separateResults/cucumber-jvm-final16.xml", "**/separateResults/standard-cucumber-jvm-final16.xml"},
                 //1 junit report + 3 feature files (Feature names contain hyphens and are partially same.)
-                {Framework.CUCUMBER_JVM, "src/test/resources/cucumber-jvm/separate-test17/junit.xml", "src/test/resources/features/ContainHyphens*.feature", "separateResults/cucumber-jvm-final17.xml", "**/separateResults/standard-cucumber-jvm-final17.xml"},
+                {Framework.CUCUMBER_JVM, "src/test/resources/cucumber-jvm/separate-test7/junit.xml", "src/test/resources/features/ContainHyphens*.feature", "separateResults/cucumber-jvm-final17.xml", "**/separateResults/standard-cucumber-jvm-final17.xml"},
         });
 
     }
