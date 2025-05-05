@@ -49,8 +49,8 @@ class LinesIterator implements Iterator<String> {
 
     @Override
     public String next() {
-        int endIndexOfLine = string.indexOf('\n', index);
-        String nextLine = string.substring(index, endIndexOfLine).trim();
+        int endIndexOfLine = string.indexOf('\n', index) > -1 ? string.indexOf('\n', index) : string.length();
+        String nextLine = string.substring(index,endIndexOfLine).trim();
         index = endIndexOfLine + 1;
         return nextLine;
     }
