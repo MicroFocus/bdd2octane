@@ -146,7 +146,7 @@ public class GherkinScenario {
     }
 
     public Optional<String> getRuleName() {
-        if (rule.isEmpty()) {
+        if (!rule.isPresent()) {
             return Optional.empty();
         }
         return Optional.of(rule.get().getName());
