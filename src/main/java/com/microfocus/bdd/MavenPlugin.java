@@ -59,12 +59,13 @@ public class MavenPlugin extends AbstractMojo {
         validateParameter(featureFilesPath, "-DfeatureFiles");
         validateParameter(framework, "-Dframework");
         validResultFilePathParameter(resultFilePath, "-DresultFile");
+        Boolean systemErrorsValue = getParameterExistence("systemErrors");
         List<String> reportFiles = FilesLocator.getReportFiles(reportFilesPath);
         FileUtil.printFiles(reportFiles, "xml", reportFilesPath);
         List<String> featureFiles = FilesLocator.getFeatureFiles(featureFilesPath);
         FileUtil.printFiles(featureFiles, "feature", featureFilesPath);
         try {
-            new Bdd2Octane(reportFiles, featureFiles, resultFilePath, framework).run();
+            new Bdd2Octane(reportFiles, featureFiles, resultFilePath, framework,systemErrorsValue).run();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XMLStreamException e) {
@@ -86,6 +87,14 @@ public class MavenPlugin extends AbstractMojo {
         }
     }
 
+    private static Boolean getParameterExistence(String paramName) {
+        String paramProperty = System.getProperty(paramName);
+        if(paramProperty != null) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
     private static void validResultFilePathParameter(String paramValue, String paramName) throws ParameterMissingException {
         if (paramValue != null && !FileUtil.isPathValid(paramValue)) {
             System.err.println("Parameter " + paramName + " is invalid");
@@ -99,7 +108,8 @@ public class MavenPlugin extends AbstractMojo {
                 "-DfeatureFiles=<pattern>\n" +
                 "-Dframework=<bdd framework>\n" +
                 "All optional parameters:\n" +
-                "-DresultFile=<pattern>\n";
+                "-DresultFile=<pattern>\n" +
+                "-DsystemErrors";
 
         public ParameterMissingException(String message) {
             super(message + '\n' + parameterErrorIndicate);

@@ -47,8 +47,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.*;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-
 
 public class Bdd2Octane {
 
@@ -60,9 +58,13 @@ public class Bdd2Octane {
     private String outPutFilePath;
     private OctaneFeatureLocator octaneFeatureLocator;
     private String toolVersion;
-
+    private boolean addSystemErrors;
 
     public Bdd2Octane(List<String> reportFiles, List<String> featureFiles, String resultFilePath, String framework) {
+        this(reportFiles,featureFiles,resultFilePath,framework,false);
+    }
+
+    public Bdd2Octane(List<String> reportFiles, List<String> featureFiles, String resultFilePath, String framework,boolean addSystemErrors) {
         this.reportFiles = reportFiles;
         this.featureFiles = featureFiles;
         this.framework = framework;
@@ -70,6 +72,7 @@ public class Bdd2Octane {
         initializeHandler();
         octaneFeatureLocator = new OctaneFeatureLocator(featureFiles);
         toolVersion = getToolVersion();
+        this.addSystemErrors = addSystemErrors;
     }
 
     public void run() throws IOException, XMLStreamException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
@@ -171,6 +174,7 @@ public class Bdd2Octane {
         Iterator<OctaneStep> stepsIterator = scenario.getSteps().iterator();
         while (stepsIterator.hasNext()) {
             OctaneStep octaneStep = stepsIterator.next();
+            octaneStep.setAddSystemErrors(addSystemErrors);
             bddFrameworkHandler.fillStep(octaneStep);
             if (octaneStep.getStatus() != Status.PASSED) {
                 break;

@@ -62,6 +62,8 @@
   </properties>
   <testcase name="Some determinable business situation" classname="Some terse yet descriptive text of what is desired like bla bla" time="0.141">
     <failure type="java.lang.AssertionError">java.lang.AssertionError
+      no such element: Unable to locate element:
+      For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
 </failure>
     <system-out><![CDATA[
 @billing @bicker @annoy @Quick @full @annoy
@@ -109,7 +111,9 @@ Scenario: Some another scenario 2             &amp#27;[90m# src/test/resources/h
   </testcase>
   <testcase name="feeding a cow cow1 yum yum yum" classname="Some terse yet descriptive text of what is desired like bla bla" time="0.054">
     <failure type="java.lang.AssertionError">java.lang.AssertionError
-</failure>
+      no such element: Unable to locate element:
+      For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+    </failure>
     <system-out><![CDATA[
 @billing @bicker @annoy
 Scenario Outline: feeding a cow cow1 yum yum yum &amp#27;[90m# src/test/resources/hellocucumber/robustgherkin.feature:57&amp#27;[0m

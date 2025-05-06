@@ -56,11 +56,12 @@ public class App {
         final String featureFilePath = validateParameter("--featureFiles", "-ff");
         final String framework = validateParameter("--framework", "-f");
         final String resultFilePath = validResultFilePathParameter("--resultFile", "-r");
+        final boolean systemErrors = Boolean.parseBoolean(validateParameterExistence("--systemErrors", "--se"));
         List<String> reportFiles = FilesLocator.getReportFiles(reportFilePath);
         FileUtil.printFiles(reportFiles, "xml", reportFilePath);
         List<String> featureFiles = FilesLocator.getFeatureFiles(featureFilePath);
         FileUtil.printFiles(featureFiles, "feature", featureFilePath);
-        new Bdd2Octane(reportFiles, featureFiles, resultFilePath, framework).run();
+        new Bdd2Octane(reportFiles, featureFiles, resultFilePath, framework,systemErrors).run();
     }
 
     private static String validateParameter(String... parameters) {
@@ -73,6 +74,15 @@ public class App {
         printArgumentMessage();
         System.exit(1);
         return null;
+    }
+
+    private static String validateParameterExistence(String... parameters) {
+        for (String param : parameters) {
+            if (properties.getProperty(param) != null) {
+                return properties.getProperty(param);
+            }
+        }
+        return "false";
     }
 
     private static String validResultFilePathParameter(String... parameters) {
@@ -105,6 +115,9 @@ public class App {
                 "--resultFile=<pattern>" +
                 " or " +
                 "-r=<pattern> for short\n" +
+                "--systemErrors" +
+                " or " +
+                "-se for short\n" +
                 "\nDon't add space before or after equal sign (=)\n");
         System.err.println("Supported BDD frameworks: ");
         System.err.print(getAllHandlerNames(getBddHandlerImplementations()));
@@ -114,11 +127,15 @@ public class App {
         Properties props = new Properties();
         for (String arg : args) {
             String[] split = arg.split("=");
-            if (split.length < 2 || split[1].trim().isEmpty()) {
-                printArgumentMessage();
-                System.exit(1);
+            if(split.length == 1 && (split[0].equals("--se") || split[0].equals("--systemErrors"))) {
+                props.setProperty(split[0], "true");
+            }else {
+                if (split.length < 2 || split[1].trim().isEmpty()) {
+                    printArgumentMessage();
+                    System.exit(1);
+                }
+                props.setProperty(split[0], split[1].trim());
             }
-            props.setProperty(split[0], split[1].trim());
         }
         return props;
     }

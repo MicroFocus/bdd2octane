@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="7" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="31" time="884.541">
+    <testcase classname="MyAccount - Footer" name="Verify Footer - Important Information About Us Hyperlink" time="157.348">
+        <failure message="Expected condition failed: waiting for com.hastings.automation.function.pageaction.webpageaction.ClickAction$1@7b93d7e1 (tried for 30 second(s) with 200 milliseconds interval)" type="org.openqa.selenium.TimeoutException"><![CDATA[Given User login into My Account with Multi Product Policies................passed
+When User clicks on "Important Information About Us" link in My Account Footer.failed
+Then User should be navigated to the respective footer page.................skipped
+
+StackTrace:
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for com.hastings.automation.function.pageaction.webpageaction.ClickAction$1@7b93d7e1 (tried for 30 second(s) with 200 milliseconds interval)
+	at org.openqa.selenium.support.ui.FluentWait.timeoutException(FluentWait.java:263)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:231)
+	at com.hastings.automation.function.pageaction.webpageaction.ClickAction.waitAndClickElement(ClickAction.java:45)
+	at com.hastings.automation.function.ui.pageobjects.digital.reactmyaccount.MaReactMarketingPreferenceOverlayPage.clickMarketingPreferenceCloseButton(MaReactMarketingPreferenceOverlayPage.java:68)
+	at com.hastings.automation.automationtest.bdd.definitions.stepdefinitions.digital.digitalsteps.MyAccountReactSteps.userClickOnFooterLink(MyAccountReactSteps.java:179)
+	at ✽.User clicks on "Important Information About Us" link in My Account Footer(classpath:src/test/resources/features/ContainHyphensFooterUIValidations.feature:51)
+]]></failure>
+        <system-out>
+            <![CDATA[MyAccount - Footer]]>
+        </system-out>
+        <system-err>
+            <![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for com.hastings.automation.function.pageaction.webpageaction.ClickAction$1@7b93d7e1 (tried for 30 second(s) with 200 milliseconds interval)
+	at org.openqa.selenium.support.ui.FluentWait.timeoutException(FluentWait.java:263)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:231)
+	at com.hastings.automation.function.pageaction.webpageaction.ClickAction.waitAndClickElement(ClickAction.java:45)
+	at com.hastings.automation.function.ui.pageobjects.digital.reactmyaccount.MaReactMarketingPreferenceOverlayPage.clickMarketingPreferenceCloseButton(MaReactMarketingPreferenceOverlayPage.java:68)
+	at com.hastings.automation.automationtest.bdd.definitions.stepdefinitions.digital.digitalsteps.MyAccountReactSteps.userClickOnFooterLink(MyAccountReactSteps.java:179)
+	at ✽.User clicks on "Important Information About Us" link in My Account Footer(classpath:src/test/resources/features/ContainHyphensFooterUIValidations.feature:51)]]>
+        </system-err>
+    </testcase>
+    <testcase classname="MyAccount - Footer" name="Verify Footer - Our Fees Hyperlink" time="172.683">
+        <failure message="Expected condition failed: waiting for com.hastings.automation.function.pageaction.webpageaction.ClickAction$1@149b6966 (tried for 30 second(s) with 200 milliseconds interval)" type="org.openqa.selenium.TimeoutException"><![CDATA[Given User logs into My Account with a policy...............................passed
+When User clicks on "Our Fees" link in My Account Footer....................failed
+Then User should be navigated to the respective footer page.................skipped
+
+StackTrace:
+org.openqa.selenium.TimeoutException: Expected condition failed: waiting for com.hastings.automation.function.pageaction.webpageaction.ClickAction$1@149b6966 (tried for 30 second(s) with 200 milliseconds interval)
+	at org.openqa.selenium.support.ui.FluentWait.timeoutException(FluentWait.java:263)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:231)
+	at com.hastings.automation.function.pageaction.webpageaction.ClickAction.waitAndClickElement(ClickAction.java:45)
+	at com.hastings.automation.function.ui.pageobjects.digital.reactmyaccount.MaReactMarketingPreferenceOverlayPage.clickMarketingPreferenceCloseButton(MaReactMarketingPreferenceOverlayPage.java:68)
+	at com.hastings.automation.automationtest.bdd.definitions.stepdefinitions.digital.digitalsteps.MyAccountReactSteps.userClickOnFooterLink(MyAccountReactSteps.java:179)
+	at ✽.User clicks on "Our Fees" link in My Account Footer(classpath:src/test/resources/features/ContainHyphensFooterUIValidations.feature:8)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//img[@alt="Close"]"}
+  (Session info: headless chrome=104.0.5112.81)
+For documentation on this error, please visit: https://selenium.dev/exceptions/#no_such_element
+Build info: version: '4.3.0', revision: 'a4995e2c09*'
+System info: host: 'EGS2HSTMCSTAU02', ip: '10.100.51.151', os.name: 'Windows Server 2016', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.2'
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [0eff3e94bb4a19c40ab2338acfa32771, findElement {using=xpath, value=//img[@alt="Close"]}]
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 104.0.5112.81, chrome: {chromedriverVersion: 104.0.5112.79 (3cf3e8c8a07d..., userDataDir: C:\Users\AUTOMA~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:64453}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://egs2hstmcstau01.test.h..., se:cdpVersion: 104.0.5112.81, se:name: TemenosToReact_TestValidati..., setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 0eff3e94bb4a19c40ab2338acfa32771
+	at jdk.internal.reflect.GeneratedConstructorAccessor104.newInstance(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
+	at org.openqa.selenium.remote.TracedCommandExecutor.execute(TracedCommandExecutor.java:51)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:569)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:162)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:387)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:379)
+	at org.openqa.selenium.By$BaseW3CLocator.findElement(By.java:399)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:279)
+	at com.hastings.automation.function.ui.pageobjects.BasePage$ByProperty.findElement(BasePage.java:135)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$1.findElement(ElementLocation.java:136)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:387)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:379)
+	at com.hastings.automation.function.pageaction.webpageaction.ReturnAction.waitAndReturnElement(ReturnAction.java:158)
+	at com.hastings.automation.function.pageaction.webpageaction.ReturnAction.waitAndReturnElement(ReturnAction.java:132)
+	at com.hastings.automation.function.pageaction.webpageaction.ReturnAction.waitAndReturnElement(ReturnAction.java:97)
+	at com.hastings.automation.function.pageaction.webpageaction.ClickAction$1.apply(ClickAction.java:49)
+	at com.hastings.automation.function.pageaction.webpageaction.ClickAction$1.apply(ClickAction.java:45)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:208)
+	at com.hastings.automation.function.pageaction.webpageaction.ClickAction.waitAndClickElement(ClickAction.java:45)
+	at com.hastings.automation.function.ui.pageobjects.digital.reactmyaccount.MaReactMarketingPreferenceOverlayPage.clickMarketingPreferenceCloseButton(MaReactMarketingPreferenceOverlayPage.java:68)
+	at com.hastings.automation.automationtest.bdd.definitions.stepdefinitions.digital.digitalsteps.MyAccountReactSteps.userClickOnFooterLink(MyAccountReactSteps.java:179)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
+	at io.cucumber.java.Invoker.invoke(Invoker.java:24)
+	at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
+	at io.cucumber.java.JavaStepDefinition.execute(JavaStepDefinition.java:29)
+	at io.cucumber.core.runner.CoreStepDefinition.execute(CoreStepDefinition.java:66)
+	at io.cucumber.core.runner.PickleStepDefinitionMatch.runStep(PickleStepDefinitionMatch.java:63)
+	at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
+	at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:85)
+	at io.cucumber.core.runner.TestStep.run(TestStep.java:57)
+	at io.cucumber.core.runner.PickleStepTestStep.run(PickleStepTestStep.java:51)
+	at io.cucumber.core.runner.TestCase.run(TestCase.java:84)
+	at io.cucumber.core.runner.Runner.runPickle(Runner.java:75)
+	at io.cucumber.testng.TestNGCucumberRunner.lambda$runScenario$1(TestNGCucumberRunner.java:132)
+	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:129)
+	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
+	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:129)
+	at io.cucumber.testng.TestNGCucumberRunner.runScenario(TestNGCucumberRunner.java:129)
+	at com.hastings.automation.automationtest.bdd.testrunners.JenkinsCucumberBrowserRunner.scenario(JenkinsCucumberBrowserRunner.java:33)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:133)
+	at org.testng.internal.TestInvoker.invokeMethod(TestInvoker.java:584)
+	at org.testng.internal.TestInvoker.invokeTestMethod(TestInvoker.java:172)
+	at org.testng.internal.TestMethodWithDataProviderMethodWorker.call(TestMethodWithDataProviderMethodWorker.java:77)
+	at org.testng.internal.TestMethodWithDataProviderMethodWorker.call(TestMethodWithDataProviderMethodWorker.java:15)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+]]></failure>
+    </testcase>
+
+    <testcase classname="MyAccount - Footer - Help UI Validation" name="Verify Help page on My Account" time="38.92">
+        <system-out><![CDATA[Given User logs into My Account with a policy...............................passed
+When User clicks on Help button.............................................passed
+Then User should be directed to the Hastings Direct Help page...............passed
+]]></system-out>
+    </testcase>
+
+    <testcase classname="MyAccount - Footer - GoGreen Overlay Ui Validations" name="Verify the Help us go green modal overlay for postal document delivery in My Account" time="81.777">
+        <system-out><![CDATA[Given User logs into My Account with Postal document delivery method policy.passed
+When User is on Dashboard screen for Go Green Modal.........................passed
+Then User should be presented with Help us go green modal overlay...........passed
+]]></system-out>
+    </testcase>
+
+    <testcase classname="MyAccount - Footeeer - GoGreen Overlay Ui Validations" name="Verify the Help us go green modal overlay for postal document delivery in My Account" time="81.777">
+        <system-out><![CDATA[Given User logs into My Account with Postal document delivery method policy.passed
+When User is on Dashboard screen for Go Green Modal.........................passed
+Then User should be presented with Help us go green modal overlay...........passed
+]]></system-out>
+    </testcase>
+</testsuite>

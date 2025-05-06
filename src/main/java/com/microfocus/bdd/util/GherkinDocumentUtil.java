@@ -80,7 +80,7 @@ public class GherkinDocumentUtil {
     private static GherkinDocument getDocument(FeatureFileMeta featureFileMeta) {
         try {
             Optional<GherkinDocument> gherkinDocument = parse(String.join("\n", Files.readAllLines(Paths.get(featureFileMeta.getFeatureFile()))), Optional.empty());
-            if(gherkinDocument.isEmpty()){
+            if(!gherkinDocument.isPresent()){
                 throw new RuntimeException("The Gherkin script contains errors. Fix them and then try again.");
             }
             return gherkinDocument.get();
@@ -106,7 +106,7 @@ public class GherkinDocumentUtil {
     }
 
     private static Optional<GherkinFeature> getFeature(GherkinDocument gherkinDocument) {
-        if(gherkinDocument.getFeature().isEmpty()){
+        if(!gherkinDocument.getFeature().isPresent()){
             return Optional.empty();
         }
         GherkinFeature feature = new GherkinFeature(gherkinDocument.getFeature().get());
