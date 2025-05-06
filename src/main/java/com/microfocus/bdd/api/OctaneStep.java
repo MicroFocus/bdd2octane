@@ -49,6 +49,7 @@ public class OctaneStep {
     private String errorMessage = null;
     private final Optional<String> docString;
     private final Optional<String> dataTable;
+    private Boolean addSystemErrors = false;
 
     public OctaneStep(String keyword, String name, String stepType, Optional<String> docString, Optional<String> dataTable) {
         this.name = name;
@@ -84,6 +85,14 @@ public class OctaneStep {
 
     public void setDuration(Long duration) {
         this.duration = duration;
+    }
+
+    public Boolean getAddSystemErrors() {
+        return addSystemErrors;
+    }
+
+    public void setAddSystemErrors(Boolean addSystemErrors) {
+        this.addSystemErrors = addSystemErrors;
     }
 
     public void writeToXml(XMLStreamWriter writer) throws XMLStreamException {

@@ -42,8 +42,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-public class CucumberJvmHandler implements BddFrameworkHandler {
+ public class CucumberJvmHandler implements BddFrameworkHandler {
 
     private Element element;
     private String errorMessage;
@@ -51,6 +52,7 @@ public class CucumberJvmHandler implements BddFrameworkHandler {
     private String featureFile;
     private String failedLineNum;
     private boolean isSkipped = false;
+    private String systemErrors;
 
     @Override
     public String getName() {
@@ -134,6 +136,9 @@ java.lang.AssertionError
             } else if (childName.equals("skipped")) {
                 isSkipped = true;
             }
+            systemErrors = element.getChildren().stream().filter(elm->"system-err".equalsIgnoreCase(elm.getName()))
+                    .map(Element::getText).collect(Collectors.joining("\n"));
+
         }
     }
 
@@ -313,7 +318,13 @@ java.lang.AssertionError
         }
         if (octaneStep.getName().equals(failedStep)) {
             octaneStep.setStatus(Status.FAILED);
-            octaneStep.setErrorMessage(errorMessage);
+            if(octaneStep.getAddSystemErrors() && systemErrors!= null && !systemErrors.isEmpty()){
+                octaneStep.setErrorMessage(errorMessage + "\n" +
+                        "-------------------------------\n" +
+                        "SYSTEM-ERRORS:\n"+systemErrors);
+            } else {
+                octaneStep.setErrorMessage(errorMessage);
+            }
         } else {
             octaneStep.setStatus(Status.PASSED);
         }
