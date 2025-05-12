@@ -35,7 +35,7 @@ SpecFlow test result injection is supported via the use of a template file for r
     or a short version:
     > **java -jar <path_to_the_jar> -rf=<path_or_pattern> -ff=<path_or_pattern> -f=\<framework> -r=\<path_to_result_file>**
     
-    The --resultFile is optional. If not provided, the default result file is <*framework*>-result.xml.
+    The --resultFile is optional. If not provided, the default result file is <*framework*>-result.xml.  
     If you like to add to report the system-err content, add argument --systemErrors or --se in short.
      
     The following picture is a sample configuration of Jenkins in a Windows environment. As you can see, the second action consumes the result
