@@ -78,3 +78,5 @@ It is required to enable the "pretty" option of Cucumber-jvm. This tool will par
 
 * If **stepNotifications** is enabled, feature name and scenario name will be replaced by scenario name and step name in JUnit report,
   currently the handler doesn't support this configuration.
+
+* When using JUnit 5.x, you must configure the system property `cucumber.junit-platform.naming-strategy=long` to ensure proper test naming. [Refer to the official documentation for integration details with Maven Surefire and Gradle](https://github.com/cucumber/cucumber-jvm/blob/main/cucumber-junit-platform-engine/README.md#maven-surefire-and-gradle).
