@@ -242,15 +242,21 @@ java.lang.AssertionError
                 String featureName = featureNameOpt.get();
                 if (sceName.startsWith(featureName + " - ")) {
                     sceName = sceName.split(featureName + " - ")[1].trim();
+                    // check matching scenario after removing feature name from element
+                    for (OctaneScenario sce : feature.getScenarios()) {
+                        if (sceName.startsWith(sce.getOutlineName())) {
+                            return sce.getName();
+                        }
+                    }
                 }
+
                 String sceNamePart = sceName;
-                while (sceNamePart.contains("-")) {
-                    int lastIndex = sceNamePart.lastIndexOf("-");
-                    sceNamePart = sceNamePart.substring(0, lastIndex).trim();
-                    String finalSceNamePart = sceNamePart;
+                boolean hasDashSeperator = sceNamePart.contains("-");
+                //start find matching scenario with removing last part after dash per iteration
+                while (hasDashSeperator) {
                     for (FeatureChild fChild : feature.getGherkinDocument().getFeature().get().getChildren()) {
                         if (fChild.getScenario().isPresent() &&
-                                fChild.getScenario().get().getName().equals(finalSceNamePart)) {
+                                fChild.getScenario().get().getName().equals(sceNamePart)) {
                             if (fChild.getScenario().get().getExamples().isEmpty()) {
                                 return sceName;
                             } else {
@@ -258,21 +264,34 @@ java.lang.AssertionError
                             }
                         }
                         if (fChild.getRule().isPresent()) {
+                            //check with scenarios under rule
                             Rule rule = fChild.getRule().get();
                             for (RuleChild rChild : rule.getChildren()) {
                                 if (rChild.getScenario().isPresent() &&
-                                        rChild.getScenario().get().getName().equals(finalSceNamePart)) {
-                                    if (rChild.getScenario().get().getExamples().isEmpty()) {
-                                        return sceName;
-                                    } else {
-                                        return sceNamePart;
+                                        rChild.getScenario().get().getName().equals(sceNamePart)) {
+                                    return sceNamePart;
+                                }
+                            }
+                            //check with scenario under rule after removing rule part from element value
+                            if(sceNamePart.startsWith(rule.getName() + " - ")){
+                                String ruleScenarioPart = sceNamePart.split(rule.getName() + " - ")[1].trim();
+                                for (RuleChild rChild : rule.getChildren()) {
+                                    if (rChild.getScenario().isPresent() &&
+                                            rChild.getScenario().get().getName().equals(ruleScenarioPart)) {
+                                        return ruleScenarioPart;
                                     }
                                 }
                             }
                         }
                     }
+                    //removing last part after dash for matching scenario, will run once without removing last part after dash
+                    hasDashSeperator = sceNamePart.contains("-");
+                    if(hasDashSeperator) {
+                        int lastIndex = sceNamePart.lastIndexOf("-");
+                        sceNamePart = sceNamePart.substring(0, lastIndex).trim();
+                    }
                 }
-                return sceName;
+//                return sceName;
             }
         }
         return null;
