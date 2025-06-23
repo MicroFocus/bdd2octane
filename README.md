@@ -16,7 +16,7 @@ The following frameworks are currently supported out-of-the-box:
 - python-behave
   > verified versions: 1.2.5, 1.2.6
 - cucumber-jvm
-  > verifed versions: 2.0.0 - 7.0.0  
+  > verifed versions: 2.0.0 - 7.0.0, 7.23.0  
   > unsupported version: 1.2.6
 - cucumber-ruby
   > verified versions: 4.0.0, 5.0.0, 6.0.0, 7.0.0
