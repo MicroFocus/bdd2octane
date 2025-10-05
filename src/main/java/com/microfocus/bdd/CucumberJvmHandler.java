@@ -93,7 +93,7 @@ java.lang.AssertionError
 
                 errorMessage = child.getText();
                 String lastLine = findLastNonEmptyLine(errorMessage);
-                if (lastLine.startsWith("at ✽.") || lastLine.startsWith("at ?.")) {
+                if (lastLine.startsWith("at ✽.") || lastLine.startsWith("at ?.") || lastLine.startsWith("at .")) {
                     extractFeatureFilePath(lastLine);
                 } else {
                     Optional<String> optionalString = findFirstStarLine(errorMessage);
@@ -153,7 +153,7 @@ java.lang.AssertionError
 
     private Optional<String> findFirstStarLine(String message) {
         for (String line : getLines(message)) {
-            if (line.startsWith("at ✽.") || line.startsWith("at ?.")) {
+            if (line.startsWith("at ✽.") || line.startsWith("at ?.") || line.startsWith("at .")) {
                 return Optional.of(line);
             }
         }
@@ -184,7 +184,7 @@ java.lang.AssertionError
 
     private void extractFeatureFilePath(String line) {
         int startOfFileLocation = line.lastIndexOf("(");
-        failedStep = line.substring(5, startOfFileLocation);
+        failedStep = line.substring(line.indexOf(".") + 1, startOfFileLocation);
         featureFile = line.substring(startOfFileLocation + 1, line.lastIndexOf(')'));
         int lineNumIndex = featureFile.lastIndexOf(':');
         failedLineNum = featureFile.substring(lineNumIndex + 1);
@@ -336,6 +336,15 @@ java.lang.AssertionError
             return;
         }
         if (octaneStep.getName().equals(failedStep)) {
+            octaneStep.setStatus(Status.FAILED);
+            if(octaneStep.getAddSystemErrors() && systemErrors!= null && !systemErrors.isEmpty()){
+                octaneStep.setErrorMessage(errorMessage + "\n" +
+                        "-------------------------------\n" +
+                        "SYSTEM-ERRORS:\n"+systemErrors);
+            } else {
+                octaneStep.setErrorMessage(errorMessage);
+            }
+        } else if((octaneStep.getKeyword() + " " + octaneStep.getName()).equals(failedStep)){
             octaneStep.setStatus(Status.FAILED);
             if(octaneStep.getAddSystemErrors() && systemErrors!= null && !systemErrors.isEmpty()){
                 octaneStep.setErrorMessage(errorMessage + "\n" +
