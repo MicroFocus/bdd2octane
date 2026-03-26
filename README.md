@@ -40,7 +40,7 @@ SpecFlow test result injection is supported via the use of a template file for r
      
     The following picture is a sample configuration of Jenkins in a Windows environment. As you can see, the second action consumes the result
     file from the first action, cucumber-jvm-result.xml:
-    ![Run as jar](./run_as_jar.png)
+    ![Run as jar](docs/assets/run_as_jar.png)
 
     2. Run as a Maven plugin
 
@@ -55,7 +55,7 @@ SpecFlow test result injection is supported via the use of a template file for r
     >    **mvn bdd2octane:run -DreportFiles=<path_or_pattern> -DfeatureFiles=<path_or_pattern> -Dframework=\<framework> -DresultFile=<path_to_result_file>**
     
        The following picture is a sample configuration of invoking a Maven target to run the plugin.
-       ![Run as mvn](./run_as_mvn.png)
+      ![Run as mvn](docs/assets/run_as_mvn.png)
 
 ### Notes on Cucumber-js handler
 
