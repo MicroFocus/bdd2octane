@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="1" name="hellocucumber.failed.RunCucumberTest" time="0.1" errors="0" skipped="0">
+  <testcase classname="Some terse yet descriptive text of what is desired like bla bla" name="Some determinable business situation" time="0.1">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError: expected true
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at hellocucumber.StepDefs.nonexistent_step(StepDefs.java:10)
+</failure>
+  </testcase>
+</testsuite>

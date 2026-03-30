@@ -128,6 +128,11 @@ public class PythonBehaveHandler implements BddFrameworkHandler {
     }
 
     @Override
+    public Optional<String> getErrorMessage() {
+        return Optional.ofNullable(errorMessage);
+    }
+
+    @Override
     public String getTestCaseElementName() {
         return "testcase";
     }

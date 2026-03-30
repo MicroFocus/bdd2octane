@@ -158,6 +158,11 @@ features/gherkin_sample.feature:48:42:in `the cow weighs 450 kg']]>
     }
 
     @Override
+    public Optional<String> getErrorMessage() {
+        return Optional.ofNullable(errorMessage);
+    }
+
+    @Override
     public String getTestCaseElementName() {
         return "testcase";
     }

@@ -3,7 +3,7 @@
  * Copyright 2021-2023 Open Text
  *
  * The only warranties for products and services of Open Text and
- * its affiliates and licensors (“Open Text”) are as may be set forth
+ * its affiliates and licensors ("Open Text") are as may be set forth
  * in the express warranty statements accompanying such products and services.
  * Nothing herein should be construed as constituting an additional warranty.
  * Open Text shall not be liable for technical or editorial errors or
@@ -31,5 +31,35 @@
  */
 package com.microfocus.bdd.ut;
 
+import com.microfocus.bdd.Bdd2Octane;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
+
 public class Bdd2OctaneTest {
+
+    @Test
+    public void testFailedTestWithUnmatchedStepNameIsNotReportedAsPassed() throws Exception {
+        List<String> reportFiles = Arrays.asList(
+                "src/test/resources/cucumber-jvm/unmatched-step/TEST-unmatched-step.xml");
+        List<String> featureFiles = Arrays.asList(
+                "src/test/resources/features/robustgherkin.feature");
+        String outputFile = "target/test-unmatched-step-result.xml";
+
+        Bdd2Octane bdd2Octane = new Bdd2Octane(reportFiles, featureFiles, outputFile, "cucumber-jvm");
+        bdd2Octane.run();
+
+        File result = new File(outputFile);
+        Assert.assertTrue("Output file should exist", result.exists());
+
+        String content = new String(Files.readAllBytes(result.toPath()));
+        Assert.assertTrue("Output should contain a failed step",
+                content.contains("status=\"failed\""));
+        Assert.assertFalse("Output should not have all steps passed when test case failed",
+                !content.contains("status=\"failed\"") && content.contains("status=\"passed\""));
+    }
 }

@@ -87,4 +87,15 @@ public interface BddFrameworkHandler {
      */
     String getTestCaseElementName();
 
+    /**
+     * Returns the error message if the test case failed at the test-case level,
+     * regardless of whether the specific failed step could be identified.
+     * Used as a fallback when fillStep() cannot match the failure to a specific step.
+     *
+     * @return Optional containing the error message if the test case failed, empty otherwise.
+     */
+    default Optional<String> getErrorMessage() {
+        return Optional.empty();
+    }
+
 }

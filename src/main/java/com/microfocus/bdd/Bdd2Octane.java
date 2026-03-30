@@ -172,18 +172,31 @@ public class Bdd2Octane {
 
     private void mergeScenario(BddFrameworkHandler bddFrameworkHandler, OctaneScenario scenario) {
         Iterator<OctaneStep> stepsIterator = scenario.getSteps().iterator();
+        boolean failureDetected = false;
+        OctaneStep lastStep = null;
         while (stepsIterator.hasNext()) {
             OctaneStep octaneStep = stepsIterator.next();
+            lastStep = octaneStep;
             octaneStep.setAddSystemErrors(addSystemErrors);
             bddFrameworkHandler.fillStep(octaneStep);
             if (octaneStep.getStatus() != Status.PASSED) {
+                failureDetected = true;
                 break;
             }
         }
         while (stepsIterator.hasNext()) {
-            //todo, need to confirm whether to ignore steps or mark them as skipped.
             OctaneStep octaneStep = stepsIterator.next();
             octaneStep.setStatus(Status.SKIPPED);
+        }
+        // Fallback: if all steps were marked PASSED but the handler detected a
+        // test-case-level failure (step name matching failed), mark the last step
+        // as FAILED so the scenario correctly reports as failed.
+        if (!failureDetected && lastStep != null) {
+            Optional<String> errorMessage = bddFrameworkHandler.getErrorMessage();
+            if (errorMessage.isPresent()) {
+                lastStep.setStatus(Status.FAILED);
+                lastStep.setErrorMessage(errorMessage.get());
+            }
         }
         scenario.markMerged();
     }
