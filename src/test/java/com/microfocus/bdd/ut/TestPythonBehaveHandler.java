@@ -93,7 +93,7 @@ public class TestPythonBehaveHandler {
                 handler.getFeatureFile().get());
         OctaneStep passStep = new OctaneStep("Then", "some testable outcome is achieved", null, null, null);
         handler.fillStep(passStep);
-        Assert.assertTrue("Handle recognize passed status", passStep.getStatus()==Status.PASSED);
+        Assert.assertNull("Non-matching step should have null status (determined by mergeScenario)", passStep.getStatus());
         
         OctaneStep failedStep = new OctaneStep( "Given", "the following people exist:", null, null, null);
         handler.fillStep(failedStep);

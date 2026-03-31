@@ -109,7 +109,10 @@ public class PythonRadishHandler implements BddFrameworkHandler {
             return;
         }
 
-        octaneStep.setStatus(Status.PASSED);
+        if (errorMessage == null) {
+            octaneStep.setStatus(Status.PASSED);
+        }
+        // else: leave null — test failed but can't identify which step
     }
 
     @Override

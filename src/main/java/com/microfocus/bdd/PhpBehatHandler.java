@@ -88,9 +88,8 @@ public class PhpBehatHandler implements BddFrameworkHandler {
             if (errorMessage.contains(octaneStep.getName())) {
                 octaneStep.setStatus(Status.FAILED);
                 octaneStep.setErrorMessage(errorMessage);
-            } else {
-                octaneStep.setStatus(Status.PASSED);
             }
+            // else: leave null — step didn't match the error message
         } else {
             octaneStep.setStatus(Status.SKIPPED);
         }

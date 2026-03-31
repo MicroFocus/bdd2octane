@@ -148,9 +148,8 @@ features/gherkin_sample.feature:48:42:in `the cow weighs 450 kg']]>
             if (octaneStep.getName().equals(failedStep)) {
                 octaneStep.setStatus(Status.FAILED);
                 octaneStep.setErrorMessage(errorMessage);
-            } else {
-                octaneStep.setStatus(Status.PASSED);
             }
+            // else: leave null — step didn't match the failed step name
         } else if (statusTag.equals(Status.SKIPPED)) {
             octaneStep.setStatus(Status.SKIPPED);
         } else {

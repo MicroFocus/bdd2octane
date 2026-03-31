@@ -119,12 +119,12 @@ public class PythonBehaveHandler implements BddFrameworkHandler {
             if (stepName.equals(failedStepName.get())) {
                 octaneStep.setStatus(Status.FAILED);
                 octaneStep.setErrorMessage(errorMessage);
-            } else {
-                octaneStep.setStatus(Status.PASSED);
             }
-        } else {
+            // else: leave null — step didn't match the failed step name
+        } else if (errorMessage == null) {
             octaneStep.setStatus(Status.PASSED);
         }
+        // else: leave null — test failed but can't identify which step
     }
 
     @Override
