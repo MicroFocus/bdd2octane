@@ -78,91 +78,95 @@ public class Bdd2Octane {
     public void run() throws IOException, XMLStreamException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
 
         XMLOutputFactory xmlOutFact = XMLOutputFactory.newInstance();
-        XMLStreamWriter writer = xmlOutFact.createXMLStreamWriter(new FileOutputStream(outPutFilePath), StandardCharsets.UTF_8.name());
-        writeDocumentHeader(writer);
+        try (FileOutputStream outputStream = new FileOutputStream(outPutFilePath)) {
+            XMLStreamWriter writer = xmlOutFact.createXMLStreamWriter(outputStream, StandardCharsets.UTF_8.name());
+            writeDocumentHeader(writer);
 
-        OctaneFeature previousFeature = null;
-        int count = 0, skipped = 0;
-        for (String file : reportFiles) {
-            for (Element testCaseElement : getTestCaseElements(file)) {
-                BddFrameworkHandler bddFrameworkHandler = handlerClass.getDeclaredConstructor().newInstance();
-                bddFrameworkHandler.setElement(testCaseElement);
+            OctaneFeature previousFeature = null;
+            int count = 0, skipped = 0;
+            for (String file : reportFiles) {
+                try (JunitReportReader reportReader = getTestCaseElements(file)) {
+                    for (Element testCaseElement : reportReader) {
+                        BddFrameworkHandler bddFrameworkHandler = handlerClass.getDeclaredConstructor().newInstance();
+                        bddFrameworkHandler.setElement(testCaseElement);
 
-                //1. get feature name or feature file, parse it into Gherkin Document and expand scenarios.
-                Optional<String> featureFilePath = bddFrameworkHandler.getFeatureFile();
-                OctaneFeature octaneFeature;
+                        //1. get feature name or feature file, parse it into Gherkin Document and expand scenarios.
+                        Optional<String> featureFilePath = bddFrameworkHandler.getFeatureFile();
+                        OctaneFeature octaneFeature;
 
-                if (featureFilePath.isPresent()) {
-                    String featureFile = featureFilePath.get();
-                    Optional<String> canonicalizeFilePath = canonicalizeFilePath(featureFile);
-                    if (canonicalizeFilePath.isPresent()) {
-                        octaneFeature = octaneFeatureLocator.getOctaneFeatureByPath(canonicalizeFilePath.get());
-                    } else {
-                        System.err.println("cannot locate a feature file by path:  " + featureFile + " skipping...");
-                        skipped ++;
-                        continue;
-                    }
-                } else {
-                    Optional<String> featureNameOpt = bddFrameworkHandler.getFeatureName(octaneFeatureLocator);
-                    if (featureNameOpt.isPresent() && !featureNameOpt.get().isEmpty()) {
-                        String featureName = featureNameOpt.get();
-                        Optional<OctaneFeature> octaneFeatureOpt = octaneFeatureLocator.getOctaneFeatureByName(featureName);
-                        if (!octaneFeatureOpt.isPresent()) {
-                            System.err.println("Cannot locate a feature file for: " + featureName + " skipping ...");
-                            skipped ++;
-                            continue;
-                        }
-                        octaneFeature = octaneFeatureOpt.get();
-                    } else {
-                        System.err.println("Feature name is empty in element:\n" + testCaseElement + " try searching by scenario name");
-                        String scenarioName = testCaseElement.getAttribute("name");
-                        Optional<OctaneFeature> feature = octaneFeatureLocator.getFeatureByScenarioName(scenarioName);
-                        if (feature.isPresent()) {
-                            octaneFeature = feature.get();
+                        if (featureFilePath.isPresent()) {
+                            String featureFile = featureFilePath.get();
+                            Optional<String> canonicalizeFilePath = canonicalizeFilePath(featureFile);
+                            if (canonicalizeFilePath.isPresent()) {
+                                octaneFeature = octaneFeatureLocator.getOctaneFeatureByPath(canonicalizeFilePath.get());
+                            } else {
+                                System.err.println("cannot locate a feature file by path:  " + featureFile + " skipping...");
+                                skipped++;
+                                continue;
+                            }
                         } else {
-                            System.err.println("Cannot locate a feature file by scenario name for: " + scenarioName + ", skipping...");
-                            skipped ++;
+                            Optional<String> featureNameOpt = bddFrameworkHandler.getFeatureName(octaneFeatureLocator);
+                            if (featureNameOpt.isPresent() && !featureNameOpt.get().isEmpty()) {
+                                String featureName = featureNameOpt.get();
+                                Optional<OctaneFeature> octaneFeatureOpt = octaneFeatureLocator.getOctaneFeatureByName(featureName);
+                                if (!octaneFeatureOpt.isPresent()) {
+                                    System.err.println("Cannot locate a feature file for: " + featureName + " skipping ...");
+                                    skipped++;
+                                    continue;
+                                }
+                                octaneFeature = octaneFeatureOpt.get();
+                            } else {
+                                System.err.println("Feature name is empty in element:\n" + testCaseElement + " try searching by scenario name");
+                                String scenarioName = testCaseElement.getAttribute("name");
+                                Optional<OctaneFeature> feature = octaneFeatureLocator.getFeatureByScenarioName(scenarioName);
+                                if (feature.isPresent()) {
+                                    octaneFeature = feature.get();
+                                } else {
+                                    System.err.println("Cannot locate a feature file by scenario name for: " + scenarioName + ", skipping...");
+                                    skipped++;
+                                    continue;
+                                }
+                            }
+                        }
+
+                        if (previousFeature != null && previousFeature != octaneFeature) {
+                            previousFeature.setStarted(FileUtil.getFileCreationTime(file));
+                            writeFeatureToXML(writer, previousFeature);
+                        }
+                        previousFeature = octaneFeature;
+
+                        //2. get scenarioName
+                        String scenarioName = bddFrameworkHandler.getScenarioName(octaneFeature, octaneFeatureLocator);
+                        if (Strings.isNullOrEmpty(scenarioName)) {
+                            System.err.println(bddFrameworkHandler.getClass().getSimpleName()
+                                    + " cannot extract a scenario out of XML " + file + ":" + testCaseElement.getLineNum() + "\n"
+                                    + testCaseElement
+                                    + "\n skipping ...");
+                            skipped++;
                             continue;
                         }
+
+                        //3. Merge steps into a scenario.
+                        Optional<OctaneScenario> scenario = octaneFeature.findScenarioAndUpdateOutlineIndex(scenarioName);
+                        if (!scenario.isPresent()) {
+                            System.err.println("cannot find scenario: " + scenarioName + " from feature");
+                            skipped++;
+                            continue;
+                        }
+                        mergeScenario(bddFrameworkHandler, scenario.get());
+                        count++;
+                    }
+                    if (previousFeature != null) {
+                        previousFeature.setStarted(FileUtil.getFileCreationTime(file));
+                        writeFeatureToXML(writer, previousFeature);
+                        previousFeature = null;
                     }
                 }
-
-                if (previousFeature != null && previousFeature != octaneFeature) {
-                    previousFeature.setStarted(FileUtil.getFileCreationTime(file));
-                        writeFeatureToXML(writer, previousFeature);
-                }
-                previousFeature = octaneFeature;
-
-                //2. get scenarioName
-                String scenarioName = bddFrameworkHandler.getScenarioName(octaneFeature, octaneFeatureLocator);
-                if (Strings.isNullOrEmpty(scenarioName)) {
-                    System.err.println(bddFrameworkHandler.getClass().getSimpleName()
-                            + " cannot extract a scenario out of XML " + file + ":" + testCaseElement.getLineNum() + "\n"
-                            + testCaseElement
-                            + "\n skipping ...");
-                    skipped ++;
-                    continue;
-                }
-
-                //3. Merge steps into a scenario.
-                Optional<OctaneScenario> scenario = octaneFeature.findScenarioAndUpdateOutlineIndex(scenarioName);
-                if (!scenario.isPresent()) {
-                    System.err.println("cannot find scenario: " + scenarioName + " from feature");
-                    skipped ++;
-                    continue;
-                }
-                mergeScenario(bddFrameworkHandler, scenario.get());
-                count++;
             }
-            if (previousFeature != null) {
-                previousFeature.setStarted(FileUtil.getFileCreationTime(file));
-                writeFeatureToXML(writer, previousFeature);
-                previousFeature = null;
-            }
+            writeDocumentEnd(writer);
+            System.out.println(String.format("%d test case(s) processed", count));
+            System.out.println(String.format("%d test case(s) skipped", skipped));
         }
-        writeDocumentEnd(writer);
-        System.out.println(String.format("%d test case(s) processed", count));
-        System.out.println(String.format("%d test case(s) skipped", skipped));
     }
 
     private void writeFeatureToXML(XMLStreamWriter writer, OctaneFeature octaneFeature) throws XMLStreamException, IOException {
@@ -229,7 +233,7 @@ public class Bdd2Octane {
         writer.writeCharacters("\n");
     }
 
-    private Iterable<Element> getTestCaseElements(String file) throws FileNotFoundException, XMLStreamException {
+    private JunitReportReader getTestCaseElements(String file) throws FileNotFoundException, XMLStreamException {
         return new JunitReportReader(new FileInputStream(file), testCaseElementName);
     }
 

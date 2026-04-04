@@ -37,21 +37,35 @@ import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.*;
+import java.io.Closeable;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
-public class JunitReportReader implements Iterable<Element>{
+public class JunitReportReader implements Iterable<Element>, Closeable {
 
+    private final InputStream inputStream;
     private XMLEventReader reader;
     private String testcaseElementName;
     private final ElementIterator iterator;
 
     public JunitReportReader(InputStream inputStream, String testcaseElementName) throws XMLStreamException {
+        this.inputStream = inputStream;
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         reader = xmlInputFactory.createXMLEventReader(inputStream, StandardCharsets.UTF_8.name());
         this.testcaseElementName = testcaseElementName;
         iterator = new ElementIterator();
+    }
+
+    @Override
+    public void close() throws IOException {
+        try {
+            reader.close();
+        } catch (XMLStreamException e) {
+            // best effort
+        }
+        inputStream.close();
     }
 
     @Override
