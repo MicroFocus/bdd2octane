@@ -54,7 +54,7 @@ public class MavenPlugin extends AbstractMojo {
     String resultFilePath;
 
     @Override
-    public void execute() throws ParameterMissingException {
+    public void execute() throws ParameterMissingException, MojoExecutionException {
         validateParameter(reportFilesPath, "-DreportFiles");
         validateParameter(featureFilesPath, "-DfeatureFiles");
         validateParameter(framework, "-Dframework");
@@ -66,18 +66,9 @@ public class MavenPlugin extends AbstractMojo {
         FileUtil.printFiles(featureFiles, "feature", featureFilesPath);
         try {
             new Bdd2Octane(reportFiles, featureFiles, resultFilePath, framework,systemErrorsValue).run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        } catch (IOException | XMLStreamException | InstantiationException |
+                 IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            throw new MojoExecutionException("Failed to convert BDD results", e);
         }
     }
 
