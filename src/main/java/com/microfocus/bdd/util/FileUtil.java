@@ -75,7 +75,10 @@ public class FileUtil {
         }
 
         try {
-            file.toPath();
+            Path normalized = file.toPath().normalize();
+            if (normalized.startsWith("..")) {
+                return false;
+            }
         } catch (InvalidPathException e) {
             return false;
         }
