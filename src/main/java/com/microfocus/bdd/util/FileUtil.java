@@ -48,7 +48,7 @@ public class FileUtil {
             BasicFileAttributes fileAttributes = Files.readAttributes(path, BasicFileAttributes.class);
             return String.valueOf(fileAttributes.creationTime().toMillis());
         } catch (IOException e) {
-            return ""; //TODO:error just return empty, log error
+            throw new RuntimeException("Failed to read creation time of file: " + filePath, e);
         }
 
     }
