@@ -103,6 +103,8 @@ public class Bdd2OctaneHandlerITCase extends Bdd2OctaneITCase {
                 {Framework.CUCUMBER_JVM, "src/test/resources/cucumber-jvm/separate-test7/junit.xml", "src/test/resources/features/ContainHyphens*.feature", "separateResults/cucumber-jvm-final17.xml", "**/separateResults/standard-cucumber-jvm-final17.xml"},
                 //1 junit report + 3 feature files of JUnit 5 results with rules
                 {Framework.CUCUMBER_JVM, "src/test/resources/cucumber-jvm/junit5/*.xml", "src/test/resources/features/junit5/*.feature", "separateResults/cucumber-jvm-final19.xml", "**/separateResults/standard-cucumber-jvm-final19.xml"},
+                //empty feature name - fallback to scenario name lookup
+                {Framework.CUCUMBER_JVM, "src/test/resources/cucumber-jvm/empty-feature-name/TEST-empty-feature-name.xml", "src/test/resources/features/feature_name_is_empty.feature", "separateResults/cucumber-jvm-final20.xml", "**/separateResults/standard-cucumber-jvm-final20.xml"},
         });
 
     }

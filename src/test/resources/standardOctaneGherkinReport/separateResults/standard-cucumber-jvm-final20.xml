@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<features version="1">
+<feature name="" path="src/test/resources/features/feature_name_is_empty.feature" started="1774526999000" tag="">
+<file>
+<![CDATA[@billing @bicker @annoy
+Feature:
+  A description with
+  multiple
+  lines
+
+  Background:
+    Given a global administrator named "Greg"
+    * a blog named "Greg's anti-tax rants"
+    * a customer named "Wilson"
+
+  @Quick @full @annoy
+  Scenario: Some determinable business situation (empty feature name)
+    Given the following people exist:
+      | name  | email           | phone |
+      | Aila  | aila@email.com  | 123   |
+      | Joe   | joe@email.com   | 234   |
+    And some precondition 1
+    When some action by the actor
+    And some other action
+    Then some testable outcome is achieved
+    And something else we can check happens too
+
+  @Quick @nightly
+  Scenario: Some another scenario 2 (empty feature name)
+  scenario 2 description
+    Given some precondition
+    And some other precondition with doc string
+		"""
+		this is comment
+		"""
+    When some action by the actor
+    And yet another action
+    Then some testable outcome is achieved
+    * something else we can check happens too
+    But I don't see something else
+
+
+  Scenario Outline: feeding a cow <name> yum yum yum (empty feature name)
+  scenario outline
+  description
+    Given the cow weighs <weight> kg
+    When we calculate the feeding requirements
+    Then the energy should be <energy> MJ
+
+    Examples:
+      | name | weight | energy |
+      | cow1 |  450   |  26500 |
+      | cow2 |  500   |  29500 |]]>
+</file>
+<scenarios>
+<scenario name="Some determinable business situation (empty feature name)">
+<steps>
+<step name="Given a global administrator named &quot;Greg&quot;" duration="0" status="passed"></step>
+<step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="passed"></step>
+<step name="* a customer named &quot;Wilson&quot;" duration="0" status="passed"></step>
+<step name="Given the following people exist:
+ | name | email | phone |
+ | Aila | aila@email.com | 123 |
+ | Joe | joe@email.com | 234 |" duration="0" status="passed"></step>
+<step name="And some precondition 1" duration="0" status="passed"></step>
+<step name="When some action by the actor" duration="0" status="passed"></step>
+<step name="And some other action" duration="0" status="passed"></step>
+<step name="Then some testable outcome is achieved" duration="0" status="passed"></step>
+<step name="And something else we can check happens too" duration="0" status="passed"></step>
+</steps>
+</scenario>
+<scenario name="Some another scenario 2 (empty feature name)">
+<steps>
+<step name="Given a global administrator named &quot;Greg&quot;" duration="0" status="passed"></step>
+<step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="passed"></step>
+<step name="* a customer named &quot;Wilson&quot;" duration="0" status="passed"></step>
+<step name="Given some precondition" duration="0" status="passed"></step>
+<step name="And some other precondition with doc string
+&quot;&quot;&quot;
+this is comment
+&quot;&quot;&quot;" duration="0" status="passed"></step>
+<step name="When some action by the actor" duration="0" status="passed"></step>
+<step name="And yet another action" duration="0" status="passed"></step>
+<step name="Then some testable outcome is achieved" duration="0" status="passed"></step>
+<step name="* something else we can check happens too" duration="0" status="passed"></step>
+<step name="But I don't see something else" duration="0" status="passed"></step>
+</steps>
+</scenario>
+<scenario name="feeding a cow &lt;name&gt; yum yum yum (empty feature name)" outlineIndex="1">
+<steps>
+<step name="Given a global administrator named &quot;Greg&quot;" duration="0" status="passed"></step>
+<step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="passed"></step>
+<step name="* a customer named &quot;Wilson&quot;" duration="0" status="passed"></step>
+<step name="Given the cow weighs 450 kg" duration="0" status="passed"></step>
+<step name="When we calculate the feeding requirements" duration="0" status="passed"></step>
+<step name="Then the energy should be 26500 MJ" duration="0" status="passed"></step>
+</steps>
+</scenario>
+<scenario name="feeding a cow &lt;name&gt; yum yum yum (empty feature name)" outlineIndex="2">
+<steps>
+<step name="Given a global administrator named &quot;Greg&quot;" duration="0" status="passed"></step>
+<step name="* a blog named &quot;Greg's anti-tax rants&quot;" duration="0" status="passed"></step>
+<step name="* a customer named &quot;Wilson&quot;" duration="0" status="passed"></step>
+<step name="Given the cow weighs 500 kg" duration="0" status="passed"></step>
+<step name="When we calculate the feeding requirements" duration="0" status="passed"></step>
+<step name="Then the energy should be 29500 MJ" duration="0" status="passed"></step>
+</steps>
+</scenario>
+</scenarios>
+</feature>
+</features>
