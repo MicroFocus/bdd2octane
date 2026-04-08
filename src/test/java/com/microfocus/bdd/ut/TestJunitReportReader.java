@@ -52,7 +52,7 @@ public class TestJunitReportReader {
         Element element = iter.next();
         Assert.assertTrue("element has a name", element.getName().equals("testcase"));
         Assert.assertEquals("element has one child named system-out", "system-out", element.getChildren().get(0).getName());
-        Assert.assertEquals("element has one child contains text", "Given a global administrator named \"Greg\"...................................passed\n" +
+        Assert.assertEquals("element has one child contains text", ("Given a global administrator named \"Greg\"...................................passed\n" +
                 "* a blog named \"Greg's anti-tax rants\"......................................passed\n" +
                 "* a customer named \"Wilson\".................................................passed\n" +
                 "Given the following people exist:...........................................passed\n" +
@@ -60,7 +60,7 @@ public class TestJunitReportReader {
                 "When some action by the actor...............................................passed\n" +
                 "And some other action.......................................................passed\n" +
                 "Then some testable outcome is achieved......................................passed\n" +
-                "And something else we can check happens too.................................passed\n", element.getChildren().get(0).getText());
+                "And something else we can check happens too.................................passed\n").trim(), element.getChildren().get(0).getText().trim());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class TestJunitReportReader {
         Element element = iter.next();
         Assert.assertTrue("element has a name", element.getName().equals("testcase"));
         Assert.assertEquals("element has one child named failure", "failure", element.getChildren().get(0).getName());
-        Assert.assertEquals("Given a global administrator named \"Greg\"...................................passed\n" +
+        Assert.assertEquals(("Given a global administrator named \"Greg\"...................................passed\n" +
                 "* a blog named \"Greg's anti-tax rants\"......................................passed\n" +
                 "* a customer named \"Wilson\".................................................passed\n" +
                 "Given the following people exist:...........................................failed\n" +
@@ -89,6 +89,22 @@ public class TestJunitReportReader {
                 "\tat org.junit.Assert.assertTrue(Assert.java:42)\n" +
                 "\tat org.junit.Assert.assertTrue(Assert.java:53)\n" +
                 "\tat hellocucumber.failed.StepDefinitions.the_following_people_exist(StepDefinitions.java:12)\n" +
-                "\tat ✽.the following people exist:(file:///C:/junit2octane/src/test/resources/features/robustgherkin.feature:14)\n", element.getChildren().get(0).getText());
+                "\tat ✽.the following people exist:(file:///C:/junit2octane/src/test/resources/features/robustgherkin.feature:14)\n").trim(), element.getChildren().get(0).getText().trim());
+    }
+
+    @Test
+    public void testEntityEncodedAngleBracketsPreserveSpaces() throws XMLStreamException, FileNotFoundException {
+        JunitReportReader reader = new JunitReportReader(
+                new FileInputStream("src/test/resources/cucumber-jvm/entity-encoding-test.xml"),
+                "testcase");
+        Iterator<Element> iter = reader.iterator();
+        Assert.assertTrue(iter.hasNext());
+        Element element = iter.next();
+        Element failure = element.getChildren().get(0);
+        Assert.assertEquals("failure", failure.getName());
+        String text = failure.getText();
+        // Spaces between entity-decoded angle brackets must be preserved
+        Assert.assertTrue("spaces between angle brackets must be preserved",
+                text.contains("<Token A> <Token B> <Token C>"));
     }
 }
