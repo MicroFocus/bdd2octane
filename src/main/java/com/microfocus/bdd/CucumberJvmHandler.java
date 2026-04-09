@@ -93,7 +93,7 @@ java.lang.AssertionError
 
                 errorMessage = child.getText();
                 String lastLine = findLastNonEmptyLine(errorMessage);
-                if (lastLine.startsWith("at ✽.") || lastLine.startsWith("at ?.") || lastLine.startsWith("at .")) {
+                if (lastLine != null && (lastLine.startsWith("at ✽.") || lastLine.startsWith("at ?.") || lastLine.startsWith("at ."))) {
                     extractFeatureFilePath(lastLine);
                 } else {
                     Optional<String> optionalString = findFirstStarLine(errorMessage);

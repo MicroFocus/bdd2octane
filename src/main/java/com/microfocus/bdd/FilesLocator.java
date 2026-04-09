@@ -54,7 +54,11 @@ public class FilesLocator {
         }
         List<String> result = new ArrayList<>();
         if (file.isDirectory()) {
-            for (File subFile : file.listFiles()) {
+            File[] files = file.listFiles();
+            if (files == null) {
+                throw new RuntimeException("Cannot read directory: " + filePattern);
+            }
+            for (File subFile : files) {
                 final String fileName = subFile.getName();
                 if (fileName.endsWith(fileExtension)) {
                     result.add(subFile.getPath());
