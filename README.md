@@ -22,7 +22,7 @@ The following frameworks are currently supported out-of-the-box:
   > verified versions: 4.0.0, 5.0.0, 6.0.0, 7.0.0
 
 You can add your own framework by implementing the interface: [BddFrameworkHandler](./src/main/java/com/microfocus/bdd/api/BddFrameworkHandler.java)
-SpecFlow test result injection is supported via the use of a template file for report generation. See https://marketplace.microfocus.com/appdelivery/content/alm-octane-bdd-automation-with-specflow.
+SpecFlow test result injection is supported via the use of a template file for report generation. See https://marketplace.opentext.com/appdelivery/content/alm-octane-bdd-automation-with-specflow.
 
 ### There are two ways to invoke this tool:
  1. Run as an executable-jar
@@ -30,32 +30,34 @@ SpecFlow test result injection is supported via the use of a template file for r
     The CI admin downloads the .jar file and deploys it to the CI server nodes,
     then creates a job to invoke the following command line: 
      
-    >**java -jar <path_to_the_jar> --reportFiles=<path_or_pattern> --featureFiles=<path_or_pattern> --framework=\<framework> --resultFile=\<path_to_result_file>**
+    >**java -jar <path_to_the_jar> --reportFiles=<relative_path_or_pattern> --featureFiles=<relative_path_or_pattern> --framework=\<framework> --resultFile=\<relative_path_to_result_file>**
     
     or a short version:
-    > **java -jar <path_to_the_jar> -rf=<path_or_pattern> -ff=<path_or_pattern> -f=\<framework> -r=\<path_to_result_file>**
+    > **java -jar <path_to_the_jar> -rf=<relative_path_or_pattern> -ff=<relative_path_or_pattern> -f=\<framework> -r=\<relative_path_to_result_file>**
     
     The --resultFile is optional. If not provided, the default result file is <*framework*>-result.xml.  
     If you like to add to report the system-err content, add argument --systemErrors or --se in short.
-     
+    
     The following picture is a sample configuration of Jenkins in a Windows environment. As you can see, the second action consumes the result
     file from the first action, cucumber-jvm-result.xml:
     ![Run as jar](docs/assets/run_as_jar.png)
 
-    2. Run as a Maven plugin
+ 2. Run as a Maven plugin
 
-       This tool is published in the Maven repository as a plugin. You can invoke the plugin by using a fully qualified plugin ID "com.microfocus.adm.almoctane.bdd:bdd2octane"
-       or just "bdd2octane" provided that a &lt;PluginGroup&gt; for "com.microfocus.adm.almoctane.bdd" is configured in maven settings. 
-       Unlike the previous way, the CI admin doesn't need to manually deploy the tool.
+    This tool is published in the Maven repository as a plugin. You can invoke the plugin by using a fully qualified plugin ID "com.microfocus.adm.almoctane.bdd:bdd2octane"
+    or just "bdd2octane" provided that a &lt;PluginGroup&gt; for "com.microfocus.adm.almoctane.bdd" is configured in maven settings. 
+    Unlike the previous way, the CI admin doesn't need to manually deploy the tool.
 
-    >    **mvn com.microfocus.adm.almoctane.bdd:bdd2octane:run -DreportFiles=<path_or_pattern> -DfeatureFiles=<path_or_pattern> -Dframework=\<framework> -DresultFile=<path_to_result_file>**
+    >**mvn com.microfocus.adm.almoctane.bdd:bdd2octane:run -DreportFiles=<relative_path_or_pattern> -DfeatureFiles=<relative_path_or_pattern> -Dframework=\<framework> -DresultFile=<relative_path_to_result_file>**
     
-       or
+    or
     
-    >    **mvn bdd2octane:run -DreportFiles=<path_or_pattern> -DfeatureFiles=<path_or_pattern> -Dframework=\<framework> -DresultFile=<path_to_result_file>**
+    >**mvn bdd2octane:run -DreportFiles=<relative_path_or_pattern> -DfeatureFiles=<relative_path_or_pattern> -Dframework=\<framework> -DresultFile=<relative_path_to_result_file>**
     
-       The following picture is a sample configuration of invoking a Maven target to run the plugin.
-      ![Run as mvn](docs/assets/run_as_mvn.png)
+    The following picture is a sample configuration of invoking a Maven target to run the plugin.
+    ![Run as mvn](docs/assets/run_as_mvn.png)
+
+**Note:** All file paths (reportFiles, featureFiles, resultFile) must be relative to the current working directory. Absolute paths are not supported.
 
 ### Notes on Cucumber-js handler
 
