@@ -40,13 +40,18 @@ import org.reflections.util.ConfigurationBuilder;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 
 public class App {
     private static Properties properties;
+    private static final Set<String> KNOWN_PARAMS = new HashSet<>(Arrays.asList(
+            "--reportFiles", "-rf", "--featureFiles", "-ff", "--framework", "-f",
+            "--resultFile", "-r", "--systemErrors", "--se", "-se"
+    ));
+    private static final Set<String> BOOLEAN_FLAGS = new HashSet<>(Arrays.asList(
+            "--systemErrors", "--se", "-se"
+    ));
 
     public static void main(String[] args) throws XMLStreamException, IOException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         // --reportFiles="**/*junit.xml" --featureFiles="**/*.feature"
@@ -56,7 +61,7 @@ public class App {
         final String featureFilePath = validateParameter("--featureFiles", "-ff");
         final String framework = validateParameter("--framework", "-f");
         final String resultFilePath = validResultFilePathParameter("--resultFile", "-r");
-        final boolean systemErrors = Boolean.parseBoolean(validateParameterExistence("--systemErrors", "--se"));
+        final boolean systemErrors = Boolean.parseBoolean(validateParameterExistence("--systemErrors", "--se", "-se"));
         List<String> reportFiles = FilesLocator.getReportFiles(reportFilePath);
         FileUtil.printFiles(reportFiles, "xml", reportFilePath);
         List<String> featureFiles = FilesLocator.getFeatureFiles(featureFilePath);
@@ -127,14 +132,18 @@ public class App {
         Properties props = new Properties();
         for (String arg : args) {
             String[] split = arg.split("=");
-            if(split.length == 1 && (split[0].equals("--se") || split[0].equals("--systemErrors"))) {
-                props.setProperty(split[0], "true");
-            }else {
+            String key = split[0];
+            if (!KNOWN_PARAMS.contains(key)) {
+                throw new IllegalArgumentException("Unknown parameter: " + key);
+            }
+            if (split.length == 1 && BOOLEAN_FLAGS.contains(key)) {
+                props.setProperty(key, "true");
+            } else {
                 if (split.length < 2 || split[1].trim().isEmpty()) {
                     printArgumentMessage();
                     System.exit(1);
                 }
-                props.setProperty(split[0], split[1].trim());
+                props.setProperty(key, split[1].trim());
             }
         }
         return props;
