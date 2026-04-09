@@ -63,7 +63,7 @@ public class JunitReportReader implements Iterable<Element>, Closeable {
         try {
             reader.close();
         } catch (XMLStreamException e) {
-            // best effort
+            System.err.println("Warning: failed to close XML reader: " + e.getMessage());
         }
         inputStream.close();
     }
