@@ -260,6 +260,9 @@
   <profiles>
     <profile>
       <id>sign</id>
+      <properties>
+        <gpg.executable>gpg2</gpg.executable>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -368,17 +371,6 @@
           <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
       </distributionManagement>
-    </profile>
-
-    <profile>
-      <id>ossrh</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <gpg.executable>gpg2</gpg.executable>
-        <gpg.passphrase>https://github.com/HPSoftware/bdd2octane</gpg.passphrase>
-      </properties>
     </profile>
 
   </profiles>
