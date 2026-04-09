@@ -332,10 +332,14 @@ java.lang.AssertionError
             return;
         }
         if (failedStep == null) {
-            octaneStep.setStatus(Status.PASSED);
+            if (errorMessage == null) {
+                octaneStep.setStatus(Status.PASSED);
+            }
+            // else: leave null — test failed but can't identify which step
             return;
         }
-        if (octaneStep.getName().equals(failedStep)) {
+        if (octaneStep.getName().equals(failedStep) ||
+                (octaneStep.getKeyword() + " " + octaneStep.getName()).equals(failedStep)) {
             octaneStep.setStatus(Status.FAILED);
             if(octaneStep.getAddSystemErrors() && systemErrors!= null && !systemErrors.isEmpty()){
                 octaneStep.setErrorMessage(errorMessage + "\n" +
@@ -344,18 +348,13 @@ java.lang.AssertionError
             } else {
                 octaneStep.setErrorMessage(errorMessage);
             }
-        } else if((octaneStep.getKeyword() + " " + octaneStep.getName()).equals(failedStep)){
-            octaneStep.setStatus(Status.FAILED);
-            if(octaneStep.getAddSystemErrors() && systemErrors!= null && !systemErrors.isEmpty()){
-                octaneStep.setErrorMessage(errorMessage + "\n" +
-                        "-------------------------------\n" +
-                        "SYSTEM-ERRORS:\n"+systemErrors);
-            } else {
-                octaneStep.setErrorMessage(errorMessage);
-            }
-        } else {
-            octaneStep.setStatus(Status.PASSED);
         }
+        // else: leave null — step didn't match the failed step name
+    }
+
+    @Override
+    public Optional<String> getErrorMessage() {
+        return Optional.ofNullable(errorMessage);
     }
 
     @Override

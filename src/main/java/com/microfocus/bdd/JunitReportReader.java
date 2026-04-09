@@ -121,9 +121,7 @@ public class JunitReportReader implements Iterable<Element>, Closeable {
                     XMLEvent event = reader.nextEvent();
                     if (event.isCharacters()) {
                         Characters cev = (Characters) event;
-                        if (!cev.isWhiteSpace()) {
-                            element.setText(element.getText() + cev.getData());
-                        }
+                        element.setText(element.getText() + cev.getData());
                     } else if (event.isStartElement()) {
                         StartElement startEvent = (StartElement) event;
                         element.appendChild(getElement(startEvent));
