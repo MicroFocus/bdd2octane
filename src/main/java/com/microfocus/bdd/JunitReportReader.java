@@ -83,7 +83,7 @@ public class JunitReportReader implements Iterable<Element>{
                     currentElement = getElement(nextStartElementEvent);
                 }
             } catch (XMLStreamException e) {
-                e.printStackTrace();
+                throw new RuntimeException("Error reading XML report", e);
             }
             return oldElement;
         }
@@ -118,7 +118,7 @@ public class JunitReportReader implements Iterable<Element>{
                     }
                 }
             } catch (XMLStreamException e) {
-                e.printStackTrace();
+                throw new RuntimeException("Error parsing XML element", e);
             }
             return element;
         }
