@@ -53,6 +53,8 @@ public class JunitReportReader implements Iterable<Element>, Closeable {
     public JunitReportReader(InputStream inputStream, String testcaseElementName) throws XMLStreamException {
         this.inputStream = inputStream;
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+        xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+        xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
         reader = xmlInputFactory.createXMLEventReader(inputStream, StandardCharsets.UTF_8.name());
         this.testcaseElementName = testcaseElementName;
         iterator = new ElementIterator();
