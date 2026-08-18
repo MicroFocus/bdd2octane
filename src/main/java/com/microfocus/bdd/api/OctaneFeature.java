@@ -142,7 +142,7 @@ public class OctaneFeature {
     private void writeFeatureHeader(XMLStreamWriter writer) throws XMLStreamException, IOException {
         writer.writeStartElement("feature");
         writer.writeAttribute("name", name);
-        writer.writeAttribute("path", featureFile);
+        writer.writeAttribute("path", featureFile == null ? null : featureFile.replace('\\', '/'));
         writer.writeAttribute("started", started);
         writer.writeAttribute("tag", getTag());
         writer.writeCharacters("\n");
