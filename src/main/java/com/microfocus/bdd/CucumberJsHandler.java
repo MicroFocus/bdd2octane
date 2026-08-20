@@ -136,6 +136,11 @@ public class CucumberJsHandler implements BddFrameworkHandler {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<String> getErrorMessage() {
+        return Optional.ofNullable(errorMessage);
+    }
+
     public String getTestCaseElementName() {
         return "testsuite";
     }

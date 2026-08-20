@@ -175,20 +175,67 @@ public class Bdd2Octane {
     }
 
     private void mergeScenario(BddFrameworkHandler bddFrameworkHandler, OctaneScenario scenario) {
-        Iterator<OctaneStep> stepsIterator = scenario.getSteps().iterator();
-        while (stepsIterator.hasNext()) {
-            OctaneStep octaneStep = stepsIterator.next();
+        List<OctaneStep> steps = scenario.getSteps();
+
+        // Pass 1: let the handler fill status for all steps
+        for (OctaneStep octaneStep : steps) {
             octaneStep.setAddSystemErrors(addSystemErrors);
             bddFrameworkHandler.fillStep(octaneStep);
-            if (octaneStep.getStatus() != Status.PASSED) {
+        }
+
+        // Pass 2: find the failure point
+        int failureIndex = -1;
+
+        // First, look for a step explicitly marked FAILED or SKIPPED by the handler
+        for (int i = 0; i < steps.size(); i++) {
+            Status status = steps.get(i).getStatus();
+            if (status == Status.FAILED || status == Status.SKIPPED) {
+                failureIndex = i;
                 break;
             }
         }
-        while (stepsIterator.hasNext()) {
-            //todo, need to confirm whether to ignore steps or mark them as skipped.
-            OctaneStep octaneStep = stepsIterator.next();
-            octaneStep.setStatus(Status.SKIPPED);
+
+        // If no explicit failure, look for null status (handler couldn't determine)
+        if (failureIndex < 0) {
+            Optional<String> errorMessage = bddFrameworkHandler.getErrorMessage();
+            if (errorMessage.isPresent()) {
+                for (int i = 0; i < steps.size(); i++) {
+                    if (steps.get(i).getStatus() == null) {
+                        steps.get(i).setStatus(Status.FAILED);
+                        steps.get(i).setErrorMessage(errorMessage.get());
+                        failureIndex = i;
+                        break;
+                    }
+                }
+                // Last resort: all steps set to PASSED but handler has error
+                if (failureIndex < 0 && !steps.isEmpty()) {
+                    int lastIndex = steps.size() - 1;
+                    steps.get(lastIndex).setStatus(Status.FAILED);
+                    steps.get(lastIndex).setErrorMessage(errorMessage.get());
+                    failureIndex = lastIndex;
+                }
+            }
         }
+
+        // Apply BDD invariant: PASSED* FAILED SKIPPED*
+        if (failureIndex >= 0) {
+            for (int i = 0; i < failureIndex; i++) {
+                if (steps.get(i).getStatus() == null) {
+                    steps.get(i).setStatus(Status.PASSED);
+                }
+            }
+            for (int i = failureIndex + 1; i < steps.size(); i++) {
+                steps.get(i).setStatus(Status.SKIPPED);
+            }
+        }
+
+        // Defensive: ensure no step has null status (would write as "undefined")
+        for (OctaneStep step : steps) {
+            if (step.getStatus() == null) {
+                step.setStatus(Status.PASSED);
+            }
+        }
+
         scenario.markMerged();
     }
 

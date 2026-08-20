@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<testsuite errors="0" failures="1" name="io.cucumber.core.plugin.JUnitFormatter" skipped="0" tests="1" time="0.100">
+    <testcase classname="Entity encoding test" name="Spaces between entity-decoded angle brackets" time="0.100">
+        <failure message="value &lt;A&gt; &lt;B&gt; did not match" type="AssertionError">
+Failing step: Then field has value "&lt;Token A&gt; &lt;Token B&gt; &lt;Token C&gt;" ... failed in 0.050s
+Assertion Failed: value &lt;Token A&gt; &lt;Token B&gt; &lt;Token C&gt; did not match expected</failure>
+    </testcase>
+</testsuite>
